@@ -1,0 +1,82 @@
+<!-- start: FORGOT -->
+
+<div ui-view="" id="app"
+     ng-class="{'app-mobile' : app.isMobile, 'app-navbar-fixed' : app.layout.isNavbarFixed, 'app-sidebar-fixed' : app.layout.isSidebarFixed, 'app-sidebar-closed':app.layout.isSidebarClosed, 'app-footer-fixed':app.layout.isFooterFixed}"
+     class="ng-scope app-navbar-fixed app-sidebar-fixed" style=""><!-- start: LOGIN -->
+
+
+    <div class="row ng-scope" ng-controller="changePassCtrl">
+        <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4 col-lg-2 col-lg-offset-5">
+            <div class="list-group">
+                <a class="list-group-item list-group-item-danger ng-binding ng-hide" href="#" ng-show="loginError"> </a>
+                <a class="list-group-item list-group-item-danger ng-binding ng-hide" href="#"
+                   ng-show="loginSuccess"> </a>
+            </div>
+
+
+            <form class="form-login ng-pristine ng-valid-email ng-invalid ng-invalid-required" method="post" name="Form"
+                  id="form1" novalidate="" ng-submit="form.submit(Form)">
+                <h4 class="log-box-title">
+                    Change Password
+                </h4>
+
+                <div class="list-group">
+
+                    <div class="list-group-item list-group-item-danger" href="#" ng-show="changePassError">
+                        {{errorMsgChangePass }}
+                    </div>
+
+                    <div class="list-group-item list-group-item-danger" href="#" ng-show="changePassSuccess">
+                        {{successMsgChangePass }}
+                    </div>
+
+                </div>
+
+                    <span class="resetpass_subheading">
+                        Please enter your new password to reset it.
+                    </span>
+
+
+                <div class="form-group"
+                     ng-class="{'has-error':Form.password.$dirty && Form.password.$invalid, 'has-success':Form.password.$valid}">
+                    <label class="control-label"> Password <span class="symbol required"></span> </label>
+                    <input type="password" placeholder="Enter a Password" class="form-control" name="password"
+                           ng-model="myModel.password" required/>
+                    <span class="error text-small block" ng-if="Form.password.$dirty && Form.password.$error.required">Password is required.</span>
+                    <span class="success text-small block" ng-if="Form.password.$valid">Ok!</span>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error':Form.password2.$dirty && Form.password2.$error.compareTo || Form.password2.$dirty && Form.password2.$invalid, 'has-success':Form.password2.$valid}">
+                    <label class="control-label"> Repeat Password <span class="symbol required"></span> </label>
+                    <input type="password" placeholder="Repeat Password" class="form-control" name="password2"
+                           ng-model="myModel.password2" compare-to="myModel.password" required/>
+                    <span class="error text-small block"
+                          ng-if="Form.password2.$dirty && Form.password2.$error.required">Repeat password is required!</span>
+                    <span class="error text-small block"
+                          ng-if="Form.password2.$dirty && Form.password2.$error.compareTo">Passwords do not match!</span>
+                    <span class="success text-small block" ng-if="Form.password2.$valid">Passwords match!</span>
+                </div>
+
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-dark-azure btn-block form_btn">
+                        <span>Change Password</span>
+                    </button>
+                </div>
+                <div class="res_pass_foot"><a ui-sref="login.signin">Login</a> | <a ui-sref="login.registration">Register</a>
+                </div>
+                <div class="res_pass_foot"><a ui-sref="login.verifypass">verify</a> | <a ui-sref="login.changepass">change
+                    pass</a>|
+                </div>
+
+            </form>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<!-- JS CODE FOR CAPTCHA END -->
+<!-- end: FORGOT -->

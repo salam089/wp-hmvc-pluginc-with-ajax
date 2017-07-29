@@ -1,0 +1,55 @@
+
+    <div class="panel">
+        <div class="panel-body custom_panel_body custom_width"  ng-controller="QuotationListCtrl">
+
+			        <div class="row">
+			        	<div class="col-md-9 qttions_header">
+			        		<h5 id="content_area_heading" translate="dashboard.quotations.TITLE">New Quote</h5>
+			        	</div>
+
+						
+
+						<div class="col-md-3 new_quot_btn">
+							<a class="btn btn-wide btn-primary " ui-sref="app.customer-quote" href="app/order-quote.html"><i class="ti-plus"></i>  <span class="title" translate="sidebar.nav.quotations.MAIN"> My</span></a>
+						</div>
+					</div>
+
+
+
+					<div class="row">
+						<div class="col-sm-4 col-lg-6">
+							<div class="panel panel-transparent filter_panel">
+								<div class="space12">
+									<div class="btn-group">
+										<a class="btn btn-primary btn-o " href="javascript:;" ng-click="filterBY(1)"  ng-class="{active: activeFButton1}">Completed</a>
+										<a class="btn btn-primary btn-o " href="javascript:;" ng-click="filterBY(2)"  ng-class="{active: activeFButton2}">Pending</a>
+										<a class="btn btn-primary btn-o" href="javascript:;" ng-click="filterBY(3)" ng-class="{active: activeFButton3}">Awaiting payment</a>
+										<a class="btn btn-primary btn-o " href="javascript:;" ng-click="filterBY(0)" ng-class="{active: activeFButtonAll}">All</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<table ng-table="tableParams" class="table table-striped quotationlisttable " >
+								<tr ng-repeat="orderdata in $data">
+									<td data-title="'Date'">{{orderdata.quotation_date * 1000 | date : 'dd MMMM yyyy' }}</td>
+									<td id="qtitle" data-title=""><a ui-sref="app.customerQtemplate" href="app/customerQtemplate.html">{{orderdata.quotation_no}}</a></td>
+									<td data-title="'Services'">{{orderdata.services}}</td>
+									<td data-title="'Amount'">${{orderdata.total_gross}}</td>
+									<!--<td data-title="'Status'" filter="{ 'name': 'text' }"> {{orderdata.status}} </td>-->
+									<td data-title="'Status'">
+										<span class="label label-sm label-info quotationbtn" ng-if="status[orderdata.status]==1">{{orderdata.status}}</span>
+										<span  ng-if="status[orderdata.status]==2" class="label label-sm label-warning quotationbtn">{{orderdata.status}}</span>
+										<span class="label label-sm label-success quotationbtn" ng-if="status[orderdata.status]==3">{{orderdata.status}}</span>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+
+        </div>
+    </div>

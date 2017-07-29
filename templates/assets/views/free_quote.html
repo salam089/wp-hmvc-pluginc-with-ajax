@@ -1,0 +1,195 @@
+<!-- start: LOGIN -->
+
+
+<div class="row">
+    <div class="free_queto_area col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-7 col-md-offset-3 col-lg-4 col-lg-offset-4">
+
+
+        <div ng-controller="loginCtrl">
+
+            <div class="list-group">
+
+                <div class="list-group-item list-group-item-danger" href="#" ng-show="signUpError"> {{errorMsg }}</div>
+
+                <div class="list-group-item list-group-item-danger" href="#" ng-show="signUpSuccess"> {{successMsg }}
+                </div>
+
+            </div>
+
+
+            <form class="form_qurote_guest" name="Form" id="quote_form" novalidate ng-submit="form.submit(Form)">
+                <h4 class="free_quote_form_title log-box-title">
+                    Get a quote  dsfsdf
+                </h4>
+
+                <div class="col-md-6">
+                    <div class="form-group custom_input_container"
+                         ng-class="{'has-error':Form.client_name.$dirty &&  Form.client_name.$dirty && Form.client_name.$invalid, 'has-success':Form.client_name.$valid}">
+                        <label> Your name </label>
+	                    <span class="input-icon">
+	                        <input style="color: #9c9ca0;" type="text" placeholder="User name"
+                                   class="free_q_topinpt form-control" required name="client_name" ng-minlength="3"
+                                   ng-maxlength="5" ng-model="myModel.client_name" required>
+	                        <i class="ti-user"></i>
+	                    </span>
+                        <span class="error text-small block" ng-if="Form.client_name.$dirty && Form.client_name.$error.required">User name is required. </span>
+                        <span class="error text-small block" ng-if="Form.client_name.$error.maxlength">Too long!</span>
+                        <span class="error text-small block" ng-if="Form.client_name.$error.minlength">Too short!</span>
+                        <span class="success text-small" ng-if="Form.client_name.$valid">Thank you.</span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group custom_input_container"
+                         ng-class="{'has-error':Form.client_email.$dirty && Form.client_email.$invalid, 'has-success':Form.client_email.$valid}">
+                        <label> E-mail </label>
+	                    <span class="input-icon">
+	                        <input style="color: #9c9ca0;padding-top:1px !important" type="email"
+                                   placeholder="example@domain.com" class="free_q_topinpt form-control" name="client_email"
+                                   ng-model="myModel.client_email" required>
+	                        <i class="ti-email"></i>
+	                    </span>
+                        <span class="error text-small block" ng-if="Form.client_email.$dirty && Form.client_email.$error.required">Email is required.</span>
+                        <span class="error text-small block" ng-if="Form.client_email.$error.client_email">Please, enter a valid email address.</span>
+                        <span class="success text-small" ng-if="Form.client_email.$valid">It's a valid e-mail!</span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="form-group custom_input_container"
+                         ng-class="{'has-error':Form.client_email.$dirty && Form.client_email.$invalid, 'has-success':Form.client_email.$valid}">
+                        <label> Let us know what to do with your image</label>
+
+                        <div class="form-group">
+                            <textarea maxlength="200" id="form-field-23" class="form-control limited"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group free_q_quantity_field"
+                     ng-class="{'has-error':Form.minMaxNumber.$dirty &amp;&amp; Form.minMaxNumber.$invalid, 'has-success':Form.minMaxNumber.$valid}">
+                    <div class="col-md-12"><label class="control-label">How many images should we provide a quote
+                        for?</label></div>
+
+                    <div class="col-md-4">
+                        <input name="minMaxNumber" placeholder="Quantity"
+                               class="form-control ng-pristine ng-empty ng-valid-min ng-valid-max ng-invalid ng-invalid-required ng-touched freeq_quan_input"
+                               ng-model="myModel.minMaxNumber" min="10" max="100" required="" style="" type="number">
+                    </div>
+                    <!-- ngIf: Form.minMaxNumber.$error.max -->
+                    <!-- ngIf: Form.minMaxNumber.$error.min -->
+                    <!-- ngIf: Form.minMaxNumber.$error.number -->
+                </div>
+
+
+                <div class="form-group free_q_quantity_field"
+                     ng-class="{'has-error':Form.email.$dirty && Form.email.$invalid, 'has-success':Form.email.$valid}">
+                    <div class="col-md-12"><label> Roughly how many images do you need edited on a yearly basis?</label>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <input name="minMaxNumber" placeholder="Quantity" class="form-control ng-pristine ng-empty ng-valid-min ng-valid-max ng-invalid ng-invalid-required ng-touched freeq_quan_input" ng-model="myModel.minMaxNumber" min="10" max="100" required="" style="" type="number"> -->
+                        <input name="minNumber" placeholder="Quantity"
+                               class="form-control ng-pristine ng-empty ng-valid-min ng-invalid ng-invalid-required ng-touched freeq_quan_input"
+                               ng-model="myModel.minNumber" min="10" required="" style="" type="number">
+                    </div>
+
+                    <!-- <div class="form-group">
+                       <label>
+                           Vertical buttons with custom icons
+                       </label>
+                       <div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span><input id="demo4" value="0" name="demo4" touchspin="" data-verticalbuttons="true" data-verticalupclass="ti-angle-up" data-verticaldownclass="ti-angle-down" class="form-control" style="display: block;" type="text"><span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span><span class="input-group-btn-vertical"><button class="btn btn-default bootstrap-touchspin-up" type="button"><i class="ti-angle-up"></i></button><button class="btn btn-default bootstrap-touchspin-down" type="button"><i class="ti-angle-down"></i></button></span></div>
+                   </div> -->
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label> Output image size</label>
+
+                        <p style="font-size: 13px">Resizing is free and we offer discount for choosing smaller image
+                            size, because they are quicker to process.</p>
+
+                        <div class="panel-body radio_content">
+                            <div class="radio clip-radio radio-primary">
+                                <input id="radio3" name="vertical" value="radio3" type="radio">
+                                <label for="radio3" style="font-size: 13px">
+                                    Resize to
+                                </label>
+                            </div>
+                            <div class="radio clip-radio radio-primary">
+                                <input id="radio4" name="vertical" value="radio4" type="radio">
+                                <label for="radio4" style="font-size: 13px">
+                                    Keep origin size
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="form-group custom_input_container"
+                         ng-class="{'has-error':Form.gender.$dirty &amp;&amp; Form.gender.$invalid, 'has-success':Form.gender.$valid}">
+                        <label> Upload sample image(s)</label>
+
+                        <div style="clear: both;"></div>
+
+                        <div class="col-md-3">
+                            <div class="drop_file_area">
+                                <center><p>Drop file here</p></center>
+                            </div>
+                            <div ng-show="uploaderImages.isHTML5" class="">
+                                <div class="well my-drop-zone" nv-file-over="" uploader="uploaderImages">
+                                    Base drop zone
+                                </div>
+                                <div nv-file-drop="" uploader="uploaderImages" options="{ url: '/foo' }">
+                                    <div nv-file-over="" uploader="uploaderImages" over-class="another-file-over-class"
+                                         class="well my-drop-zone">
+                                        Another drop zone with its own settings
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 or_div"><p>or</p></div>
+                        <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                        <div class="col-md-3">
+		                	<span class="btn btn-primary btn-o btn-file free_q_upld_btn">
+		                    Select file
+		                    <input nv-file-select="" uploader="uploaderImages" multiple="" type="file">
+		                </span>
+                        </div>
+
+                        <br>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group custom_input_container"
+                     ng-class="{'has-error':Form.gender.$dirty &amp;&amp; Form.gender.$invalid, 'has-success':Form.gender.$valid}">
+                    <div class="col-md-3 form-actions free_quote_form_btn pull-right">
+                        <button type="save" class="btn btn-dark-azure btn-block form_btn user_setting_btn">
+                            <span><i class="t ti-check"></i>Submit</span>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+
+        </div>
+        <!-- end: Controller -->
+
+    </div>
+
+    <!-- end: LOGIN BOX -->
+
+</div>
+
+
+<!-- end: LOGIN -->
+

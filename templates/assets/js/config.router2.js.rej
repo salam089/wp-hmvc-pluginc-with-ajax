@@ -1,0 +1,10 @@
+diff a/wp-content/plugins/oel-cmp/templates/assets/js/config.router2.js b/wp-content/plugins/oel-cmp/templates/assets/js/config.router2.js	(rejected hunks)
+@@ -221,7 +221,7 @@
+        // resolve: loadSequence('cookies','flow','userCtrl','loginCtrl')
+         resolve: loadSequence('loginCtrl'),
+ 		controller:'loginCtrl'
+-    }).state('login.forgot', {
++    }).state('signin.forgot', {
+ 			url: '/forgot',
+ 			templateUrl: siteUrl+"/wp-content/plugins/oel-cmp/templates/assets/views/login_forgot.html"
+ 	}).state('/',{

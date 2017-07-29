@@ -1,0 +1,1 @@
+app.controller('appCtrl', ["$scope","authFact",    function($scope, authFact) {        $scope.siteUrl = "http://www.clippingpath.dev/";        $scope.myModel = angular.copy($scope.master);    }]);

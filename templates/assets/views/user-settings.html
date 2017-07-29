@@ -1,0 +1,568 @@
+
+<!-- end: BREADCRUMB -->
+<!-- start: TABS -->
+<!-- /// controller:  'TabsDemoCtrl' -  localtion: assets/js/controllers/bootstrapCtrl.js /// -->
+
+<!--<div ng-controller="TabsDemoCtrl">-->
+
+		<div ng-controller="userSettingCtrl" id="user_settings_page" class="row">
+		<div class="col-md-12">
+			
+			<div class="panel">
+				<div class="panel-body custom_panel_body custom_width">
+
+
+				<!-- form title starts -->
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h1 class="formTitle log-box-title">
+                               Settings
+                            </h1>
+                          </div>
+                        </div>
+				<!-- form title ends -->
+
+<!-- tab container starts -->
+					<uib-tabset class="tabbable tabable_custom">
+
+<!-- tab1 starts -->
+						<uib-tab class="tab_title" heading="My profile">
+							<!-- me portion  -->
+							<div class="tab_form_container">
+								<div class="row">
+									<div class="col-md-12">
+								
+	<!--tab1 form1 starts -->
+									<form class="user_form" method="post" name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+
+
+										<fieldset>
+											<legend> Me </legend>
+
+											<div class="row">
+												<div class="col-md-12">
+													<div class="list-group overflw_hidden nomargin">
+														<div class="list-group-item list-group-item-danger" href="#" ng-show="settingsError"> {{errorMsgSettings }} </div>
+
+														<div class="list-group-item list-group-item-success" href="#" ng-show="settingsSuccess"> {{successMsgSettings }} </div>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-md-12">
+													<div  class="form-group custom_input_container" ng-class="{'has-error':Form.name.$dirty &amp;&amp; Form.name.$invalid, 'has-success':Form.name.$valid}">
+														<label class="control-label">Name</label>
+														<input class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" name="name" ng-model="myModel.name" required="" type="text">
+														<!-- ngIf: Form.firstName.$dirty && Form.firstName.$invalid -->
+														<!-- ngIf: Form.firstName.$valid -->
+														<span class="error text-small block" ng-if="Form.name.$dirty && Form.name.$error.required">Name is required.</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-md-12">
+													<div class="form-group nomargin" ng-class="{'has-error':Form.email.$dirty && Form.email.$invalid, 'has-success':Form.email.$valid}">
+														<label> E-mail </label>
+														<input type="email" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" name="email" ng-model="myModel.email" required style="color: #9c9ca0;" autocomplete="off" >
+														<span class="error text-small block" ng-if="Form.email.$dirty && Form.email.$error.required">Email is required.</span>
+														<span class="error text-small block" ng-if="Form.email.$error.email">Please, enter a valid email address.</span>
+														<!-- <span class="success text-small" ng-if="Form.email.$valid">It's a valid e-mail!</span> -->
+													</div>
+												</div>
+											</div>
+
+
+
+											<div class="form-group nomargin">
+												<!-- add another email portion -->
+												<div class="row margintop8" ng-repeat="personalEmail in emails">
+												 	<ng-form name="emailForm">
+													    <div class="col-md-12 has-error" ng-class="{'has-error':emailForm.email2.$dirty && emailForm.email2.$invalid, 'has-success':emailForm.email2.$valid}">
+														    <div class="input-group bootstrap-touchspin" style="margin-bottom: 8px">
+
+															    <input type="email" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required custom_input_container" name="email2" ng-model="personalEmail.email" placeholder="E-mail" required style="color: #9c9ca0;display: block;" >
+
+															      <span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up" type="button" ng-click="removeEmail($index)"><i class="fa fa-lg fa-trash-o"></i></button></span>
+														    </div>
+															<span class="error text-small block" ng-if="emailForm.email2.$error.required">Email is required.</span>
+															<span class="error text-small block" ng-if="emailForm.email2.$dirty &&emailForm.email2.$error.email">Please, enter a valid email address.</span>
+													    </div>
+												    </ng-form>
+												 </div>
+
+												<div class="row" ng-if="emails.length < 2">
+													<div class="col-md-12">							
+														<div class="form-group add_email">
+															 <a class="add_another_mail" href="#" ng-click="addNewEmail()">Add another email</a>
+														</div>
+													</div>
+												</div>
+												<!-- add another email portion end-->
+											</div>
+
+											<div class="row">
+												<div class="col-md-12">
+													<div  class="form-group custom_input_container" ng-class="{'has-error':Form.phone.$dirty && Form.phone.$invalid, 'has-success':Form.phone.$valid}">
+														<label> Phone </label>
+														<!-- <input type="text"  class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" name="phone" ng-model="myModel.phone" style="color: #9c9ca0" placeholder="xxxx-xxx-xxxx" required ng-pattern="/^(\+|)\d{4}-\d{3}-\d+$/" > -->
+														<input type="text"  class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" name="phone" ng-model="myModel.phone" style="color: #9c9ca0" required>
+
+														<span class="error text-small block" ng-if="Form.phone.$dirty && Form.phone.$error.required">Phone number is required.</span>
+														<span class="error text-small block" ng-if="!Form.phone.$error.required && Form.phone.$invalid">Please, enter a valid phone number.</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-md-3 form-actions btn_myprof_form">
+													<button type="submit"  class="btn btn-dark-azure btn-block user_setting_btn" >
+														<span>Save</span>
+													</button>
+												</div>
+											</div>
+
+
+										</fieldset>
+									</form>
+	<!--tab1 form1 ends -->
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-12">
+	<!-- tab1 form2 starts -->
+								<!-- my company portion  -->
+										<form class="user_form" method="post" name="Form2" id="form2" novalidate  ng-submit="form.submit(Form2)">
+											<fieldset>
+
+												<legend> My company </legend>
+												<div class="row">
+													<div class="col-md-12">
+														<div class="list-group overflw_hidden nomargin">
+															<div class="list-group-item list-group-item-danger" href="#" ng-show="companySettingError"> {{errorMsgcompanySetting }} </div>
+															<div class="list-group-item list-group-item-success" href="#" ng-show="companySettingSuccess"> {{successMsgcompanySetting }} </div>
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12">
+														<div  class="form-group" class="custom_input_container" ng-class="{'has-error':Form2.companyname.$dirty &amp;&amp; Form2.companyname.$invalid, 'has-success':Form2.companyname.$valid}">
+															<label> Company name </label>
+															<input class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" name="companyname" ng-model="myModel.companyname" required="" type="text">
+															<span class="error text-small block" ng-if="Form2.companyname.$dirty && Form2.companyname.$error.required">Company name is required.</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12">
+														<div  class="form-group custom_input_container" ng-class="{'has-error':Form2.website.$dirty && Form2.website.$invalid, 'has-success':Form2.website.$valid}">
+															<label> Website </label>
+															<input type="text" class="form-control" name="website" ng-model="myModel.website"  style="color: #9c9ca0" ng-pattern="/^(https?|ftp)://(-\.)?([^\s/?\.#-]+\.?)+(/[^\s]*)?$/" placeholder="http://">
+															<span class="error text-small block" ng-if="Form2.website.$dirty && Form2.website.$invalid">Please, enter a valid website url</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12">
+														<div  class="form-group" class="custom_input_container" ng-class="{'has-error':Form2.workphone.$dirty && Form2.workphone.$invalid, 'has-success':Form2.workphone.$valid}">
+															<label> Work phone </label>
+															<!-- <input type="text"  class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" name="workphone" ng-model="myModel.workphone" style="color: #9c9ca0" placeholder="xxxx-xxx-xxxx" required ng-pattern="/^(\+|)\d{4}-\d{3}-\d+$/" > -->
+															<input type="text"  class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" name="workphone" ng-model="myModel.workphone" style="color: #9c9ca0" required >
+
+															<span class="error text-small block" ng-if="Form2.workphone.$dirty && Form2.workphone.$error.required">Phone number is required.</span>
+															<span class="error text-small block" ng-if="!Form2.workphone.$error.required && Form2.workphone.$invalid">Please, enter a valid phone number.</span>
+														</div>
+													</div>
+												</div>
+
+
+												<div class="row">
+													<div class="col-md-12">
+														<div  class="form-group" class="custom_input_container" ng-class="">
+															<label> VAT number </label>
+															<input type="text"  class="form-control" name="vat_num" ng-model="myModel.vat_num" style="color: #9c9ca0" >
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-3 form-actions btn_myprof_form">
+														<button type="submit"  class="btn btn-dark-azure btn-block user_setting_btn" >
+															<span>Save</span>
+														</button>
+													</div>
+												</div>
+
+											</fieldset>
+										</form>
+								<!-- my company portion  end-->
+	<!-- tab1 form2 ends -->
+									</div>
+
+
+								</div>
+							</div>
+						</uib-tab>
+<!-- tab1 ends -->
+
+
+
+
+<!-- tab2 starts -->
+						<!--  billing portion start-->
+						<uib-tab heading="Billing address">
+							<div class="tab_form_container">
+
+								<div class="row">
+									<div class="col-md-12">
+										<form class="user_form" method="post" name="Form3" id="form3" novalidate ng-submit="form.submit(Form3)">
+											<fieldset>
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="list-group overflw_hidden nomargin">
+															<div class="list-group-item list-group-item-danger" href="#" ng-show="companyBillingSettingError"> {{errorMsgCompanyBillingSetting}} </div>
+
+															<div class="list-group-item list-group-item-success" href="#" ng-show="companyBillingSettingSuccess"> {{successMsgCompanyBillingSetting}} </div>
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group custom_input_container" ng-class="{'has-error':Form3.address1.$dirty && Form3.address1.$invalid, 'has-success':Form3.address1.$valid}">
+															<label> Address line 1 </label>
+															<input class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" name="address1" ng-model="myModel.address1" required type="text">
+															<span class="error text-small block" ng-if="Form3.address1.$dirty && Form3.address1.$error.required">Adress is required.</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group custom_input_container" ng-class="{'has-error':Form3.address2.$dirty && Form3.address2.$invalid, 'has-success':Form3.address2.$valid}">
+															<label> Address line 2 </label>
+															<input class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" name="address2" ng-model="myModel.address2" type="text">
+															<!-- <span class="error text-small block" ng-if="Form3.address2.$dirty && Form3.address2.$error.required">Adress is required.</span> -->
+														</div>
+													</div>
+												</div>
+
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group custom_input_container" ng-class="{'has-error':Form3.city.$dirty && Form3.city.$invalid, 'has-success':Form3.city.$valid}">
+															<label> City </label>
+															<input type="text"  class="form-control" name="city" ng-model="myModel.city"  required  style="color: #9c9ca0" >
+															<span class="error text-small block" ng-if="Form3.city.$dirty && Form3.city.$error.required">City is required.</span>
+														</div>
+													</div>
+												</div>
+
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group custom_input_container" ng-class="{'has-error':Form3.county.$dirty && Form3.county.$invalid, 'has-success':Form3.county.$valid}">
+															<label> County (optional) </label>
+															<input type="text"  class="form-control" name="county" ng-model="myModel.county"  style="color: #9c9ca0" >
+															<!-- <span class="error text-small block" ng-if="Form3.county.$dirty && Form3.county.$error.required">County is required.</span> -->
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group custom_input_container" ng-class="{'has-error':Form3.postcode.$dirty && Form3.postcode.$invalid, 'has-success':Form3.postcode.$valid}">
+															<label>Postcode</label>
+															<input type="text"  class="form-control" name="postcode" ng-model="myModel.postcode"  required  style="color: #9c9ca0" >
+															<span class="error text-small block" ng-if="Form3.postcode.$dirty && Form3.postcode.$error.required">Postcode is required.</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group"  class="form-group custom_input_container" ng-class="{'has-error':Form3.country.$dirty &amp;&amp; Form3.country.$invalid, 'has-success':Form3.country.$valid}">
+															<label> Country </label>
+										                        <span class="clip-select">
+										                            <select name="country" class="form-control ng-pristine ng-valid ng-empty ng-touched" ng-model="myModel.country" required style="">
+																		<option value="">&nbsp;</option>
+																		<option ng-repeat="country in countries" value="{{country.code}}">{{country.name}}</option>
+																	</select>
+
+										                        </span>
+															<span class="error text-small block" ng-if="Form3.country.$dirty && Form3.country.$error.required">Country is required.</span>
+														</div>
+													</div>
+												</div>
+
+
+												<div class="row">
+													<div class="col-md-3 form-actions btn_myprof_form">
+														<button type="submit"  class="btn btn-dark-azure btn-block user_setting_btn" >
+															<span>Save</span>
+														</button>
+													</div>
+												</div>
+
+											</fieldset>
+										</form>
+									</div>
+								</div>
+
+								<!-- my company portion  end-->
+							</div>
+						</uib-tab>
+						<!--  billing portion start-->
+<!-- tab2 ends -->
+
+
+
+
+<!-- tab3 starts -->
+						<!--  reset password portion start-->
+						<uib-tab heading="Change password">
+							<div class="tab_form_container">
+								<div class="row">
+									<div class="col-md-12">
+										<form class="user_form ng-pristine ng-valid-email ng-invalid ng-invalid-required" method="post" name="Form4" id="form4" novalidate="" ng-submit="form.submit(Form4)">
+										<fieldset>
+
+										<div class="row">
+											<div class="col-md-12">
+												<div class="list-group overflw_hidden nomargin">
+													<div class="list-group-item list-group-item-danger" href="#" ng-show="changePassError"> {{errorMsgChangePass}} </div>
+													<div class="list-group-item list-group-item-success" href="#" ng-show="changePassSuccess"> {{successMsgChangePass}} </div>
+												</div>
+											</div>
+										</div>
+										
+												
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group" ng-class="{'has-error':Form4.password.$dirty && Form4.password.$invalid, 'has-success':Form4.password.$valid}">
+													<label class="control-label"> New password </label>
+													<input type="password" class="form-control" name="password" ng-model="myModel.password" required ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,}/" />
+													<span class="error text-small block" ng-if="Form4.password.$dirty && Form4.password.$error.required">Password is required.</span>
+													<span class="error text-small block" ng-if="Form4.password.$dirty && Form4.password.$invalid">Minimum 8 characters with least an uppercase, a lowercase and a number required</span>
+													<span class="success text-small block" ng-if="Form4.password.$valid">Ok!</span>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group" ng-class="{'has-error':Form4.password2.$dirty && Form4.password2.$error.compareTo || Form4.password2.$dirty && Form4.password2.$invalid, 'has-success':Form4.password2.$valid}">
+													<label class="control-label"> Re-type new password </label>
+													<input type="password" class="form-control" name="password2" ng-model="myModel.password2" compare-to="myModel.password" required ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,}/" />
+
+													<span class="error text-small block" ng-if="Form4.password2.$dirty && Form4.password2.$error.required">Repeat password is required!</span>
+													<span class="error text-small block" ng-if="Form4.password2.$dirty && Form4.password2.$error.compareTo">Passwords do not match!</span>
+													<span class="success text-small block" ng-if="Form4.password2.$valid">Passwords match!</span>
+
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-12">
+												<!-- <div class="form-group" ng-if="myModel.ftpStatus == 1"> -->
+												<div class="form-group">
+													<div class="checkbox clip-check check-primary">
+														<input name="passForFtp" ng-checked="myModel.password == myModel.passForFtp && myModel.ftpSamePassword == 1" id="passForFtp" ng-model="myModel.ftpSamePassword" type="checkbox" ng-true-value="1" ng-false-value="0">
+														<label for="passForFtp"> Use same password for FTP </label>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-4 form-actions btn_myprof_form" style="padding-right: 4px">
+												<button type="submit"  class="btn btn-dark-azure btn-block user_setting_btn" >
+													<span>Update password</span>
+												</button>
+											</div>
+											<div class="col-md-8">
+											</div>
+										</div>
+
+										</fieldset>
+									</form>
+									</div>
+								</div>
+								<!-- my company portion  end-->
+							</div>
+						</uib-tab>
+						<!--  reset password portion end-->
+<!-- tab3 ends -->
+
+
+
+<!-- tab4 starts -->
+						<!-- download upload portion -->
+						<uib-tab heading="Upload/download">
+							<div class="upload_area">
+								<!-- <div class="row upload1">
+									<div class="col-md-3 upload_icon">
+										<img class="responsive" src="wp-content/plugins/oel-cmp/templates/assets/images/my_acc_dropbox.png" alt="test" title="test"/>
+									</div>
+									<div class="col-md-9 upload_content_right">
+										<h4 class="upload1_content_title">Dropbox sync</h4>
+										<p class="upld_dnld_content" style="margin-bottom: 42px">We’ve made file transmission really easy with dropbox integration. You can instantly enable dropbox on your account by providing your dropbox email address  <a href="">Learn more</a>.</p>
+
+
+										<div class="checkbox">
+											<span class="upld_dnld_icon_subtitle">Enable Dropbox</span>
+														<span class="green switch green ng-not-empty ng-valid" ng-click="undefined ? myModel.switchsetting : myModel.switchsetting=!myModel.switchsetting" ng-class="{ checked:myModel.switchsetting, disabled:undefined }" ng-model="myModel.switchsetting" ng-init="myModel.switchsetting = true" style="">
+															<small></small>
+															<input ng-model="myModel.switchsetting" style="display: none;" class="ng-pristine ng-untouched ng-valid ng-empty" type="checkbox"><span class="switch-text"> </span></span>
+										</div>
+									</div>
+								</div> -->
+
+								<div class="row upload2">
+									<div class="col-md-3 upload_icon2">
+										<img class="responsive" src="wp-content/plugins/oel-cmp/templates/assets/images/ftp.png" alt="test" title="test"/>
+									</div>
+									<div class="col-md-9 upload_content_right">
+										<h4 class="upload1_content_title">FTP (File Transfer Protocol)</h4>
+										<p class="upld_dnld_content">You may want to use FTP when you need to transfer large files on a regular basis. Use any FTP client such as FileZilla, Transmit, Cyberduck, FireFTP and WinSCP  <a href=""> Learn more</a>.</p>
+
+										<div class="row">
+											<div class="col-md-12">
+												<div class="list-group overflw_hidden nomargin">
+													<div class="list-group-item list-group-item-danger" href="#" ng-show="enableFTPError"> {{errorMsgEnableFTP}} </div>
+													<div class="list-group-item list-group-item-success" href="#" ng-show="enableFTPSuccess"> {{successMsgEnableFTP}} </div>
+												</div>
+
+											</div>
+										</div>
+
+										<form class="ng-pristine ng-valid-email ng-invalid ng-invalid-required" method="post" name="Form6" id="Form6" novalidate="" ng-submit="form.submit(Form6)" ng-if="myModel.ftpStatus != 1 && !enableFTPSuccess">
+
+											<div class="row">
+												<div class="col-md-12">
+													<div class="checkbox custom_checkbox_2">
+														<span class="upld_dnld_icon_subtitle" >Enable FTP</span>
+														<span class="green switch white ng-not-empty ng-valid up_dnld_chckbox2" ng-click="undefined ? myModel.enableFTP : myModel.enableFTP=!myModel.enableFTP" ng-class="{ checked:myModel.enableFTP, disabled:undefined }" ng-model="myModel.enableFTP" ng-init="myModel.ftpStatus"><small></small><input ng-model="myModel.enableFTP" style="display: none;" class="ng-pristine ng-untouched ng-valid ng-empty" type="checkbox"><span class="switch-text"> </span></span>
+													</div>
+												</div>
+											</div>
+
+
+											<ng-form name="Form6Pass" ng-if="myModel.enableFTP">
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group" ng-class="{'has-error':Form6Pass.passForFtp.$dirty && Form6Pass.passForFtp.$invalid, 'has-success':Form6Pass.passForFtp.$valid}">
+															<label class="control-label"> Enter password for your FTP account <span class="symbol required"></span> </label>
+															<input type="password" placeholder="Enter a password" class="form-control" name="passForFtp" ng-model="myModel.passForFtp" required ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,}/" />
+															<span class="error text-small block" ng-if="Form6Pass.passForFtp.$dirty && Form6Pass.passForFtp.$error.required">Password is required.</span>
+															<span class="error text-small block" ng-if="Form6Pass.passForFtp.$dirty && Form6Pass.passForFtp.$invalid">Minimum 8 characters with least an uppercase, a lowercase and a number required</span>
+															<span class="success text-small block" ng-if="Form6Pass.passForFtp.$valid">Ok!</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group" ng-class="{'has-error':Form6Pass.passForFtp2.$dirty && Form6Pass.passForFtp2.$error.compareTo || Form6Pass.passForFtp2.$dirty && Form6Pass.passForFtp2.$invalid, 'has-success':Form7ftppassword2.$valid}">
+															<label class="control-label"> Repeat password <span class="symbol required"></span> </label>
+															<input type="password" placeholder="Repeat password" class="form-control" name="passForFtp2" ng-model="myModel.passForFtp2" compare-to="myModel.passForFtp" required ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,}/" />
+															<span class="error text-small block" ng-if="Form6Pass.passForFtp2.$dirty && Form6Pass.passForFtp2.$error.required">Repeat password is required!</span>
+															<span class="error text-small block" ng-if="Form6Pass.passForFtp2.$dirty && Form6Pass.passForFtp2.$error.compareTo">Passwords do not match!</span>
+															<span class="success text-small block" ng-if="Form6Pass.passForFtp2.$valid">Passwords match!</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
+														<div class="col-md-4 form-actions btn_myprof_form">
+															<button type="submit"  class="btn btn-dark-azure btn-block user_setting_btn" >
+																<span>Create FTP account</span>
+															</button>
+														</div>
+														<div class="col-md-8">
+														
+														</div>
+												</div>
+
+											</ng-form>
+
+										</form>
+
+										<form class="user_form ng-pristine ng-valid-email ng-invalid ng-invalid-required" method="post" name="Form7" id="Form7" novalidate="" ng-submit="form.submit(Form7)" ng-if="myModel.ftpStatus == 1 || enableFTPSuccess">
+											Host: clippingpathindia.com<br>
+											Username: {{myModel.ID}}@clippingpathindia.com<br>
+											Password: {{myModel.passForFtpMasked}}<br><br>
+											<div class="row">
+													<div class="col-md-12">
+													<div class="list-group">
+														<div class="list-group-item list-group-item-danger" href="#" ng-show="changePassError2"> {{errorMsgChangePass2}} </div>
+														<div class="list-group-item list-group-item-success" href="#" ng-show="changePassSuccess2"> {{successMsgChangePass2}} </div>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="row">
+													<div class="col-md-12">
+													<div class="form-group" ng-class="{'has-error':Form7.newPassForFtp.$dirty && Form7.newPassForFtp.$invalid, 'has-success':Form7.newPassForFtp.$valid}">
+														<label class="control-label"> Enter password for your FTP account <span class="symbol required"></span> </label>
+														<input type="password" placeholder="Enter a password" class="form-control" name="newPassForFtp" ng-model="myModel.passForFtp" required ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,}/" />
+														<span class="error text-small block" ng-if="Form7.newPassForFtp.$dirty && Form7.newPassForFtp.$error.required">Password is required.</span>
+														<span class="error text-small block" ng-if="Form7.newPassForFtp.$dirty && Form7.newPassForFtp.$invalid">Minimum 8 characters with least an uppercase, a lowercase and a number required</span>
+														<span class="success text-small block" ng-if="Form7.newPassForFtp.$valid">Ok!</span>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="row">
+													<div class="col-md-12">
+													<div class="form-group" ng-class="{'has-error':Form7.newPassForFtp2.$dirty && Form7.newPassForFtp2.$error.compareTo || Form7.newPassForFtp2.$dirty && Form7.newPassForFtp2.$invalid, 'has-success':Form7.newPassForFtp2.$valid}">
+														<label class="control-label"> Repeat password <span class="symbol required"></span> </label>
+														<input type="password" placeholder="Repeat password" class="form-control" name="newPassForFtp2" ng-model="myModel.newPassForFtp2" compare-to="myModel.passForFtp" required ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8,}/" />
+														<span class="error text-small block" ng-if="Form7.newPassForFtp2.$dirty && Form7.newPassForFtp2.$error.required">Repeat password is required!</span>
+														<span class="error text-small block" ng-if="Form7.newPassForFtp2.$dirty && Form7.newPassForFtp2.$error.compareTo || Form7.newPassForFtp2.$invalid">Passwords do not match!</span>
+														<span class="success text-small block" ng-if="Form7.newPassForFtp2.$valid">Passwords match!</span>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="row">
+													<div class="col-md-4 form-actions btn_myprof_form">
+														<button type="submit"  class="btn btn-dark-azure btn-block user_setting_btn" >
+															<span>Update FTP password</span>
+														</button>
+													</div>
+													<div class="col-md-8">
+														
+													</div>
+											</div>
+
+										</form>
+
+									</div>
+								</div>
+							</div>
+						</uib-tab>
+						<!-- download upoload portion end -->
+<!-- tab4 ends -->
+					</uib-tabset>
+<!-- tab container ends -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+

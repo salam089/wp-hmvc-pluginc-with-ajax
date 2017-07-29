@@ -1,0 +1,73 @@
+<!-- start: FORGOT -->
+
+<div ui-view="" id="app" ng-class="{'app-mobile' : app.isMobile, 'app-navbar-fixed' : app.layout.isNavbarFixed, 'app-sidebar-fixed' : app.layout.isSidebarFixed, 'app-sidebar-closed':app.layout.isSidebarClosed, 'app-footer-fixed':app.layout.isFooterFixed}" class="ng-scope app-navbar-fixed app-sidebar-fixed" style=""><!-- start: LOGIN -->
+
+
+
+        <div class="row ng-scope" ng-controller="verifyCtrl" >
+            <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4 col-lg-2 col-lg-offset-5">
+            <div class="list-group">
+                <a class="list-group-item list-group-item-danger ng-binding ng-hide" href="#" ng-show="loginError">  </a>
+                <a class="list-group-item list-group-item-danger ng-binding ng-hide" href="#" ng-show="loginSuccess">  </a>
+            </div>
+
+
+
+
+            <form class="form-login ng-pristine ng-valid-email ng-invalid ng-invalid-required" method="post" name="Form" id="form1" novalidate="" ng-submit="form.submit(Form)" >
+                    <h4 class="log-box-title">
+                       Verify request
+                    </h4>
+                <div class="list-group">
+
+                    <div class="list-group-item list-group-item-danger" href="#" ng-show="forgetVerifyError"> {{errorMsgVerify }} </div>
+
+                    <div class="list-group-item list-group-item-danger" href="#" ng-show="forgetVerifySuccess"> {{successMsgVerify }} </div>
+
+                </div>
+
+                    <span class="resetpass_subheading">
+                        Please enter verify code that have sent to your email to create a new password.
+                    </span>
+
+                <div class="form-group" ng-class="{'has-error':Form.email.$dirty &amp;&amp; Form.email.$invalid, 'has-success':Form.email.$valid}">
+                    <label> E-mail <span class="symbol required"></span></label>
+                    <span class="input-icon">
+                        <input placeholder="example@domain.com" class="form-control ng-pristine ng-untouched ng-empty ng-valid-email ng-invalid ng-invalid-required" name="email" ng-model="myModel.email" required="" style="color: #9c9ca0;" type="email">
+                        <i class="ti-email"></i>
+                    </span>
+                    <span class="error text-small block" ng-if="Form.email.$dirty && Form.email.$error.required">Email is required.</span>
+                    <span class="error text-small block" ng-if="Form.email.$error.email">Please, enter a valid email address.</span>
+                    <span class="success text-small" ng-if="Form.email.$valid">It's a valid e-mail!</span>
+                </div>
+
+
+
+                <div class="form-group" ng-class="{'has-error':Form.number.$dirty && Form.number.$invalid, 'has-success':Form.number.$valid}">
+                    <label class="control-label"> Code <span class="symbol required"></span> </label>
+                    <input type="text" placeholder="Enter verified code" class="form-control" name="number" ng-model="myModel.number" ng-pattern="/^[0-9]*$/" required />
+                </div>
+
+
+
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-dark-azure btn-block form_btn">
+                        <span>Verify me</span>
+                    </button>
+                </div>
+                <div class="res_pass_foot"><a ui-sref="login.signin">Login</a> | <a ui-sref="login.registration">Register</a></div>
+                <div class="res_pass_foot"><a ui-sref="login.verifypass">verify</a> | <a ui-sref="login.changepass">change pass</a>|</div>
+
+
+            </form>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<!-- JS CODE FOR CAPTCHA END -->
+<!-- end: FORGOT -->

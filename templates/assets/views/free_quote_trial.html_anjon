@@ -1,0 +1,1096 @@
+<!-- start: LOGIN -->
+
+
+<div class="row">
+    <div class="free_queto_area col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-7 col-md-offset-3 col-lg-4 col-lg-offset-4">
+
+
+        <!-- /// controller:  'WizardCtrl' -  localtion: assets/js/controllers/wizardCtrl.js /// -->
+        <div ng-controller="FreeTrialQuoteQtrl">
+            <!-- start: WIZARD FORM -->
+
+            <div class="list-group">
+                <div class="list-group-item list-group-item-danger" href="#" ng-show="signUpError"> {{errorMsg }}</div>
+                <div class="list-group-item list-group-item-danger" href="#" ng-show="signUpSuccess"> {{successMsg }}
+                </div>
+            </div>
+            <script type="text/ng-template" id="forgetPassTemplate.html" class="modal_box">
+                <div class=" scndmodal_area ">
+
+                    <div class="row-fluid">
+                        <div class="ng-scope">
+
+                            <div class="main-login col-md-12">
+                                <div class="list-group">
+                                    <a class="list-group-item list-group-item-danger ng-binding ng-hide"
+                                       href="#"
+                                       ng-show="loginError"> </a>
+                                    <a class="list-group-item list-group-item-danger ng-binding ng-hide"
+                                       href="#"
+                                       ng-show="loginSuccess"> </a>
+                                </div>
+
+
+                                <form class="form-login ng-pristine ng-valid-email ng-invalid ng-invalid-required"
+                                      method="post" name="FormRestPass"
+                                      novalidate="">
+                                    <h4 class="log-box-title">
+                                        Reset password
+                                    </h4>
+
+                                    <div class="list-group">
+
+                                        <div class="list-group-item list-group-item-danger" href="#"
+                                             ng-show="forgetCaptchaError">
+                                            {{errorMsgCaptcha }}
+                                        </div>
+
+                                        <div class="list-group-item list-group-item-danger" href="#"
+                                             ng-show="forgetCaptchaSuccess">
+                                            {{successMsgCaptcha }}
+                                        </div>
+
+                                    </div>
+
+                                            <span class="resetpass_subheading">
+                                                Please enter your email address and we’ll send a link for you to create a new password.
+                                            </span>
+
+                                    <div class="form-group"
+                                         ng-class="{'has-error':FormRestPass.email.$dirty &amp;&amp; FormRestPass.email.$invalid, 'has-success':FormRestPass.email.$valid}">
+                                        <label> E-mail </label>
+                                        {{myModel.email}}
+                                        <span class="input-icon">
+
+                                            <input placeholder="example@domain.com"
+                                                   class="form-control ng-pristine ng-untouched ng-empty ng-valid-email ng-invalid ng-invalid-required"
+                                                   name="email" ng-model="myModel.email" readonly required=""
+                                                   style="color: #9c9ca0;" type="email">
+                                            <i class="ti-email"></i>
+                                        </span>
+                                        <span class="error text-small block"
+                                              ng-if="FormRestPass.email.$dirty && FormRestPass.email.$error.required">Email is required.</span>
+                                        <span class="error text-small block" ng-if="FormRestPass.email.$error.email">Please, enter a valid email address.</span>
+                                        <span class="success text-small"
+                                              ng-if="FormRestPass.email.$valid">It's a valid e-mail!</span>
+                                    </div>
+
+
+                                    <div id="captcha_area" class="form-group" ng-class="">
+                                        <div class="digits_container">
+                                            <captcha field1="{{field1}}" operator="{{operator}}"
+                                                     field2="{{field2}}"></captcha>
+                                        </div>
+                                        <!-- <input type="text" id="answer" /> -->
+                                        <input class="form-control captchainput captcha-input"
+                                               name="captchaResult"
+                                               ng-model="captchaResult"
+                                               size="1" required/>
+
+                                        <div class="captcha_refresh_icon"><a href="#"><img
+                                                ng-click="captchaRefresh(form)"
+                                                src="/wp-content/plugins/oel-cmp/templates/assets/images/captcha_refresh.png"></a>
+                                        </div>
+                                        <!-- <input type="submit" value="Add Numbers" onclick="addNums();" /> -->
+                                        <div id="status" style="color: green"></div>
+                                    </div>
+
+
+                                    <div class="form-actions">
+                                        <button type="submit" ng-click="form.resetPassClick(FormRestPass);"
+                                                class="btn btn-dark-azure btn-block form_btn">
+                                            <span>RESET PASSWORD</span>
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </script>
+
+            <script type="text/ng-template" id="varifyCodeTemplate.html" class="modal_box">
+                <div class=" scndmodal_area ">
+                    <div class="row-fluid">
+                        <div class="ng-scope">
+                            <div class="main-login col-md-12">
+                                <div class="list-group">
+                                    <a class="list-group-item list-group-item-danger ng-binding ng-hide"
+                                       href="#"
+                                       ng-show="loginError"> </a>
+                                    <a class="list-group-item list-group-item-danger ng-binding ng-hide"
+                                       href="#"
+                                       ng-show="loginSuccess"> </a>
+                                </div>
+
+
+                                <form class="form-login ng-pristine ng-valid-email ng-invalid ng-invalid-required"
+                                      method="post" name="FormVerifyCode" id="form1" novalidate="">
+                                    <h4 class="log-box-title">
+                                        Verify Code
+                                    </h4>
+
+                                    <div class="list-group">
+                                        <div class="list-group-item list-group-item-danger" href="#"
+                                             ng-show="forgetVerifyError">
+                                            <p>{{errorMsgVerify }}{{message}}</p>
+                                        </div>
+                                        <div class="list-group-item list-group-item-danger" href="#"
+                                             ng-show="forgetCaptchaSuccess">
+                                            {{successMsgCaptcha}}
+                                        </div>
+
+                                        <div class="list-group-item list-group-item-danger" href="#"
+                                             ng-show="forgetVerifySuccess">
+                                            {{successMsgVerify }}
+                                        </div>
+
+                                    </div>
+
+                                            <span class="resetpass_subheading">
+                                                Please enter verify code that have sent to your email to create a new password.
+                                            </span>
+
+                                    <div class="form-group"
+                                         ng-class="{'has-error':FormVerifyCode.email.$dirty &amp;&amp; FormVerifyCode.email.$invalid, 'has-success':FormVerifyCode.email.$valid}">
+                                        <label> E-mail <span class="symbol required"></span></label>
+                                            <span class="input-icon">
+                                                <input placeholder="example@domain.com"
+                                                       class="form-control ng-pristine ng-untouched ng-empty ng-valid-email ng-invalid ng-invalid-required"
+                                                       name="email" ng-model="myModel.email" readonly required=""
+                                                       style="color: #9c9ca0;" type="email">
+                                                <i class="ti-email"></i>
+                                            </span>
+                                            <span class="error text-small block"
+                                                  ng-if="FormVerifyCode.email.$dirty && FormVerifyCode.email.$error.required">Email is required.</span>
+                                                    <span class="error text-small block"
+                                                          ng-if="FormVerifyCode.email.$error.email">Please, enter a valid email address.</span>
+                                        <span class="success text-small" ng-if="FormVerifyCode.email.$valid">It's a valid e-mail!</span>
+                                    </div>
+
+
+                                    <div class="form-group"
+                                         ng-class="{'has-error':FormVerifyCode.number.$dirty && FormVerifyCode.number.$invalid, 'has-success':FormVerifyCode.number.$valid}">
+                                        <label class="control-label"> Code <span
+                                                class="symbol required"></span>
+                                        </label>
+                                        <input type="text" placeholder="Enter verified code"
+                                               class="form-control"
+                                               name="number" ng-model="myModel.number"
+                                               ng-pattern="/^[0-9]*$/"
+                                               required/>
+                                    </div>
+
+
+                                    <div class="form-actions">
+                                        <button type="submit" ng-click="form.verifyClick(FormVerifyCode);"
+                                                class="btn btn-dark-azure btn-block form_btn">
+                                            <span>Verify me</span>
+                                        </button>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </script>
+
+            <script type="text/ng-template" id="resetPassTemplate.html" class="modal_box">
+                <div class=" scndmodal_area ">
+                    <div class="row-fluid">
+                        <div class="ng-scope">
+                            <div class="main-login col-md-12">
+
+                                <div class="list-group">
+                                    <a class="list-group-item list-group-item-danger ng-binding ng-hide"
+                                       href="#"
+                                       ng-show="loginError"> </a>
+                                    <a class="list-group-item list-group-item-danger ng-binding ng-hide"
+                                       href="#"
+                                       ng-show="loginSuccess"> </a>
+                                </div>
+
+                                <form class="form-login ng-pristine ng-valid-email ng-invalid ng-invalid-required"
+                                      method="post" name="FormChangePass" novalidate=""
+                                      ng-submit="form.submit(FormChangePass)">
+                                    <h4 class="log-box-title">
+                                        Change Password
+                                    </h4>
+
+                                            <span class="resetpass_subheading">
+                                                    Please enter your new password to reset it.
+                                            </span>
+
+                                    <div class="list-group">
+
+                                        <div class="list-group-item list-group-item-danger" href="#"
+                                             ng-show="changePassError">
+                                            <p>{{message}}</p>
+                                        </div>
+                                        <div class="list-group-item list-group-item-danger" href="#"
+                                             ng-show="changePassError">
+                                            {{errorMsgChangePass }}
+                                        </div>
+
+                                        <div class="list-group-item list-group-item-danger" href="#"
+                                             ng-show="changePassSuccess">
+                                            {{successMsgChangePass }}
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group"
+                                         ng-class="{'has-error':FormChangePass.password.$dirty && FormChangePass.password.$invalid, 'has-success':FormChangePass.password.$valid}">
+                                        <label class="control-label"> Password <span
+                                                class="symbol required"></span>
+                                        </label>
+                                        <input type="password" placeholder="Enter a Password"
+                                               class="form-control"
+                                               name="password"
+                                               ng-model="myModel.password" required/>
+                                                <span class="error text-small block"
+                                                      ng-if="FormChangePass.password.$dirty && FormChangePass.password.$error.required">Password is required.</span>
+                                                <span class="success text-small block"
+                                                      ng-if="Form.password.$valid">Ok!</span>
+                                    </div>
+                                    <div class="form-group"
+                                         ng-class="{'has-error':FormChangePass.password2.$dirty && FormChangePass.password2.$error.compareTo || FormChangePass.password2.$dirty && FormChangePass.password2.$invalid, 'has-success':FormChangePass.password2.$valid}">
+                                        <label class="control-label"> Repeat Password <span
+                                                class="symbol required"></span>
+                                        </label>
+                                        <input type="password" placeholder="Repeat Password"
+                                               class="form-control"
+                                               name="password2"
+                                               ng-model="myModel.password2" compare-to="myModel.password"
+                                               required/>
+                                                <span class="error text-small block"
+                                                      ng-if="FormChangePass.password2.$dirty && FormChangePass.password2.$error.required">Repeat password is required!</span>
+                                                <span class="error text-small block"
+                                                      ng-if="FormChangePass.password2.$dirty && FormChangePass.password2.$error.compareTo">Passwords do not match!</span>
+                                                    <span class="success text-small block"
+                                                          ng-if="FormChangePass.password2.$valid">Passwords match!</span>
+                                    </div>
+
+
+                                    <div class="form-actions">
+                                        <button type="submit" ng-click="form.changePass(FormChangePass);"
+                                                class="btn btn-dark-azure btn-block form_btn">
+                                            <span>Change Password</span>
+                                        </button>
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </script>
+
+            <form class="form_qurote_guest" name="Form" id="form" novalidate ng-submit="form.submit(Form)">
+                <div id="wizard" class="swMain">
+
+
+                    <h4 class="free_quote_form_title log-box-title">
+                        Request free trial and quote
+                    </h4>
+
+                    <div id="wizard" class="swMain stepbar_area">
+                        <ul>
+                            <li ng-click="form.goTo(Form, 1)">
+                                <a href ng-class="{'selected' : currentStep >= 1, 'done' : currentStep > 1}">
+                                    <div class="stepNumber">
+                                        1
+                                    </div>
+                                    <span class="stepDesc text-small">Free trial</span>
+                                </a>
+                            </li>
+                            <li ng-click="form.goTo(Form, 2)">
+                                <a href ng-class="{'selected' : currentStep >= 2, 'done' : currentStep > 2}">
+                                    <div class="stepNumber">
+                                        2
+                                    </div>
+                                    <span class="stepDesc text-small">Quotation</span>
+                                </a>
+                            </li>
+                            <li ng-click="form.goTo(Form, 3)">
+                                <a href ng-class="{'selected' : currentStep >= 3, 'test' : currentStep > 3}">
+                                    <div class="stepNumber">
+                                        3
+                                    </div>
+                                    <span class="stepDesc text-small">Your details</span>
+                                </a>
+                            </li>
+
+                            <li style="display:none;" ng-click="form.goTo(Form, 3)">
+                                <a href ng-class="{'selected' : currentStep >= 3, 'test' : currentStep > 3}">
+                                    <div class="stepNumber">
+                                        3
+                                    </div>
+                                    <span class="stepDesc text-small">Your details</span>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+
+                    <!-- start: WIZARD STEP 1 -->
+                    <div id="step-1" ng-show="currentStep == 1">
+                        <div class="steps_content_container">
+                            <!--test our service-->
+                            <div class="row ">
+
+                                <div class="col-md-12">
+
+                                    <div class="form-group custom_input_container">
+                                        <fieldset class="drop_file_fieldset_style">
+                                            <legend>One image to test our service</legend>
+                                            <label style="font-size: 13px">This will be the image that we edit and
+                                                return to
+                                                you according to your instructions.</label>
+
+                                            <div class="col-md-3">
+
+                                                <div class="drop_file_area">
+                                                    <center><p>Drop file here</p></center>
+                                                </div>
+
+                                                <div ng-show="uploaderImages.isHTML5" class="">
+                                                    <div class="well my-drop-zone" nv-file-over=""
+                                                         uploader="uploaderImages">
+                                                        Base drop zone
+                                                    </div>
+                                                    <div nv-file-drop="" uploader="uploaderImages"
+                                                         options="{ url: '/foo' }">
+                                                        <div nv-file-over="" uploader="uploaderImages"
+                                                             over-class="another-file-over-class"
+                                                             class="well my-drop-zone">
+                                                            Another drop zone with its own settings
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 or_div"><p>or</p></div>
+                                            <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                                            <div class="col-md-3">
+						                	<span class="btn btn-primary btn-o btn-file free_q_upld_btn">
+							                    Select file
+							                    <input name="UpldFile" nv-file-select="" uploader="uploaderImages"
+                                                       multiple="" type="file">
+							                </span>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Let us know detail-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group custom_input_container"
+                                         ng-class="{'has-error':Form.quotation_details.$dirty, 'has-success':Form.quotation_details.$valid}">
+                                        <div class="form-group"
+                                             ng-class="{'has-error':Form.email.$dirty && Form.email.$invalid, 'has-success':Form.email.$valid}">
+                                            <label>Let us know what to do with your image</label>
+
+                                    <textarea name="quotation_details" maxlength="200" id="form-field-23"
+                                              class="form-control limited ng-pristine ng-empty ng-touched ng-invalid ng-invalid-required"
+                                              ng-model="myModel.quotation_details"
+                                              ng-required="currentStep == 1" required></textarea>
+
+                                    <span class="error text-small block"
+                                          ng-if="Form.quotation_details.$dirty && Form.quotation_details.$error.required">This field is required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Output image size-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label> Output image size</label>
+
+                                    <p style="font-size: 13px">Resizing is free and we offer discount for choosing
+                                        smaller
+                                        image size, because they are quicker to process.</p>
+
+                                    <div class="panel-body radio_content">
+
+
+                                        <div class="check_radio_content">
+                                            <div class="radio clip-radio radio-primary"
+                                                 ng-class="{'has-error':Form.sizing.$dirty, 'has-success':Form.sizing.$valid}">
+                                                  <span class="error text-small block"
+                                                        ng-if="Form.sizing.$dirty && Form.sizing.$error.required">Choose a sizing option</span>
+                                                <input type="radio" id="resize_to"
+                                                       name="sizing" value="r"
+                                                       ng-model="myModel.sizing" ng-required="currentStep == 1" ng-click="resizeTo()">
+
+
+                                                <label for="resize_to" style="font-size: 13px">
+                                                    Resize to
+                                                </label>
+
+
+                                            </div>
+
+
+                                            <div class="img_reaize_opt" ng-show="myModel.sizing == 'r'">
+
+                                                <div class="width_height_portion"
+                                                     ng-class="{'has-error':(Form.width.$dirty && Form.width.$invalid) && (Form.height.$dirty && Form.height.$invalid), 'has-success':Form.width.$valid}">
+                                                    <div class="col-md-4 width_content">
+                                                        <div class="form-group"
+                                                             ng-class="{'has-error':Form.width.$dirty && Form.width.$invalid, 'has-success':Form.width.$valid}">
+                                                            <label>width</label>
+
+                                                            <div class="input-group">
+                                                                <input class="form-control" type="number" name="width"
+                                                                       ng-model="myModel.width"
+                                                                       min="1"
+                                                                       max="9999"
+                                                                       minlength="1"
+                                                                       maxlength="4"
+                                                                       maxlength
+                                                                       ng-required="currentStep == 1 && myModel.sizing == 'r' && !myModel.height">
+                                                                <span class="input-group-addon px_input">px</span>
+                                                            </div>
+
+                                                            <div class="error text-small block clear"
+                                                                 ng-if=" (Form.height.$dirty && Form.height.$invalid)">
+                                                                Enter your required size
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4 height_content">
+                                                        <div class="form-group"
+                                                             ng-class="{'has-error':Form.height.$dirty && Form.height.$invalid, 'has-success':Form.height.$valid}">
+                                                            <label>height</label>
+
+                                                            <div class="input-group">
+                                                                <input class="form-control" type="number"
+                                                                       name="height"
+                                                                       min="1"
+                                                                       max="9999"
+                                                                       minlength="1"
+                                                                       maxlength="4"
+                                                                       maxlength
+                                                                       ng-model="myModel.height"
+                                                                       ng-required="currentStep == 1 && myModel.sizing == 'r' && !myModel.width">
+                                                                <span class="input-group-addon px_input">px</span>
+                                                            </div>
+                                                            <div class="error text-small block clear"
+                                                                 ng-if=" (Form.height.$dirty && Form.height.$invalid) ">
+                                                                Enter your required size
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="error text-small block clear"
+                                                         ng-if=" (Form.height.$dirty && Form.height.$invalid) ||( Form.height.$dirty && Form.height.$invalid )">
+                                                        Enter your required size
+                                                    </div>
+
+
+                                                </div>
+
+
+                                                <div class="col-md-12 margin_container">
+
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.sizing_margin.$dirty, 'has-success':Form.sizing_margin.$valid}">
+
+                                                        <div class="checkbox clip-check check-primary check_box">
+                                                            <input id="resize_to_margin"
+                                                                   ng-value="1"
+                                                                   name="sizing_margin_opt"
+                                                                   ng-model="myModel.sizing_margin_opt"
+                                                                   type="checkbox"/>
+                                                            <label for="resize_to_margin">
+                                                                margin
+                                                            </label>
+                                                        </div>
+
+
+                                                        <input name="sizing_margin" ng-model="myModel.sizing_margin"
+                                                               style="color: #9c9ca0;" type="number" min="1"
+                                                               max="99"
+                                                               ng-min="1" ng-max="99"
+                                                               min="1"
+                                                               max="99"
+                                                               minlength="1"
+                                                               maxlength="2"
+                                                               ng-required="myModel.sizing_margin_opt == '1'"
+                                                               ng-keyup="maxVal(Form.sizing_margin);"
+                                                               ng-disabled="!myModel.sizing_margin_opt"
+                                                                />
+
+                                                        <select id="form-field-select-1"
+                                                                ng-disabled="!myModel.sizing_margin_opt"
+                                                                class="form-control margin_select"
+                                                                name="resizeMarginType"
+                                                                ng-model="myModel.resizeMarginType">
+                                                            <option slected value="px">px</option>
+                                                            <option value="%">%</option>
+                                                        </select>
+
+
+                                                        <div class="pullerror text-small block error clear"
+                                                             ng-if="Form.sizing_margin.$dirty && Form.sizing_margin.$error.required">
+                                                            This field is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="check_radio_content"
+                                             style="margin-top: -20px;margin-bottom: 17px;">
+                                            <div class="radio clip-radio radio-primary">
+                                                <input type="radio" id="keep_original" name="sizing" value="o"
+                                                       ng-model="myModel.sizing" ng-required="currentStep == 1" ng-click="keepOrginal()">
+
+                                                <label for="keep_original" style="font-size: 13px">
+                                                    Keep original file size
+                                                </label>
+                                            </div>
+
+
+                                            <div class="img_reaize_opt" ng-show="myModel.sizing == 'o'">
+
+                                                <div class="col-md-12 margin_container">
+                                                    <div class="form-group"
+                                                         ng-class="{'has-error':Form.original_margin.$dirty, 'has-success':Form.original_margin.$valid}">
+
+                                                        <div class="checkbox clip-check check-primary check_box">
+                                                            <input id="checkbox7" name="original_margin_chk"
+                                                                   ng-value="1"
+                                                                   ng-model="myModel.original_margin_chk"
+                                                                   type="checkbox">
+                                                            <label for="checkbox7">
+                                                                margin
+                                                            </label>
+                                                        </div>
+
+                                                        <input type="number" class="form-control"
+                                                               ng-model="original_margin" name="original_margin"
+                                                               style="color: #9c9ca0;"
+                                                               min="1"
+                                                               max="99"
+                                                               minlength="1"
+                                                               maxlength="2"
+                                                               ng-disabled="!myModel.original_margin_chk"
+                                                               ng-required="myModel.original_margin_chk == '1'">
+                                                        <select class="form-control margin_select"
+                                                                name="orginalMarginType"
+                                                                ng-disabled="!myModel.original_margin_chk"
+                                                                ng-model="myModel.orginalMarginType">
+                                                            <option slected value="px">px</option>
+                                                            <option value="%">%</option>
+                                                        </select>
+
+                                                        <span class="pullerror text-small block error clear"
+                                                              ng-if="Form.original_margin.$dirty && Form.original_margin.$error.required">This field is required.</span>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <!--  </div> -->
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--File formate-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group custom_input_container"
+                                         ng-class="{'has-error':Form.ReturnFileFormat.$dirty && Form.ReturnFileFormat.$invalid, 'has-success':Form.ReturnFileFormat.$valid}">
+                                        <label for="return file format">Return file format</label>
+                                    <span class="clip-select">
+                                         <select name="ReturnFileFormat" class="form-control"
+                                                 ng-model="myModel.ReturnFileFormat" ng-required="currentStep == 1">
+                                             <option id=val0>JPG, leave original background</option>
+                                             <option id=val1>JPG, white background</option>
+                                             <option id=val2>PSD, Transparent background single layer</option>
+                                             <option id=val3>PSD, Transparent background multiple layer</option>
+                                             <option id=val4>PSD, layer mask single layer</option>
+                                             <option id=val5>PSD, white background single layer</option>
+                                             <option id=val6>PSD, white background multiple layer</option>
+                                             <option id=val7>TIF, Transparent background single layer</option>
+                                             <option id=val8>TIF, Transparent background multiple layer</option>
+                                             <option id=val9>TIF, layer mask single layer</option>
+                                             <option id=val10>TIF, white background single layer</option>
+                                             <option id=val11>TIF, white background multiple layer</option>
+                                             <option id=val12>PNG, transparent background</option>
+                                             <option id=val13>PNG, white background</option>
+                                             <option id=val14>AI</option>
+                                             <option id=val15>EPS</option>
+                                             <option id=val16>PDF</option>
+                                             <option id=val17>Other (please specify in the instruction area below)
+                                             </option>
+                                         </select>
+
+			                             <span class="error text-small block"
+                                               ng-if="Form.ReturnFileFormat.$dirty && Form.ReturnFileFormat.$error.required">this field is required.
+                                         </span>
+        								</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group custom_input_container"
+                                         ng-class="{'has-error':Form.WebCompression.$dirty  && Form.WebCompression.$invalid, 'has-success':Form.WebCompression.$valid}">
+                                        <label for="web compression">Web compression </label>
+                                    <span class="clip-select">
+				                            <select name="WebCompression"
+                                                    class="form-control ng-pristine ng-empty ng-touched ng-invalid ng-invalid-required"
+                                                    ng-model="myModel.WebCompression"
+                                                    ng-required="currentStep == 1"
+                                                    ng-disabled="myModel.WebCompressionDisabled"
+                                                    ng-options="key as value for (key , value) in compressions"
+                                                    >
+
+                                            </select>
+				                             <span class="error text-small block"
+                                                   ng-if="Form.WebCompression.$dirty && Form.WebCompression.$error.required">this field is required.</span>
+				                        	</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-md-3 form-actions next_step_btn pull-right">
+                                    <button class="btn btn-dark-azure btn-block form_btn user_setting_btn"
+                                            ng-click="form.next(Form)">
+                                        Next <i class="fa fa-arrow-circle-right"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end: WIZARD STEP 1 -->
+
+
+                    <!-- start: WIZARD STEP 2 -->
+                    <div id="step-2" ng-show="currentStep == 2">
+                        <div class="row steps_content_container">
+
+                            <div class="form-group free_q_quantity_field"
+                                 ng-class="{'has-error':Form.howManyImgQ.$dirty && Form.howManyImgQ.$invalid, 'has-success':Form.howManyImgQ.$valid}">
+                                <div class="col-md-12">
+                                    <label class="control-label">How many images should we provide a quote
+                                        for?</label>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <input name="howManyImgQ" placeholder="Quantity"
+                                           class="form-control ng-pristine ng-empty ng-valid-min ng-valid-max ng-invalid ng-invalid-required ng-touched freeq_quan_input"
+                                           ng-model="myModel.howManyImgQ" max="200" ng-required="currentStep == 2"
+                                           style="" type="number">
+                                    <span class="error text-small block" ng-if="Form.howManyImgQ.$error.required">Field is required</span>
+                                    <!-- <span class="error text-small block" ng-if="Form.howManyImgQ.$error.max">Number must not be higher than 10!</span>
+                                    <span class="error text-small block" ng-if="Form.howManyImgQ.$error.number">Not valid number!</span> -->
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group free_q_quantity_field"
+                                 ng-class="{'has-error':Form.YearlyImgEdit.$dirty && Form.YearlyImgEdit.$invalid, 'has-success':Form.YearlyImgEdit.$valid}">
+                                <div class="col-md-12"><label> Roughly how many images do you need edited on a
+                                    yearly
+                                    basis?</label></div>
+                                <div class="col-md-4">
+                                    <!-- <input name="minMaxNumber" placeholder="Quantity" class="form-control ng-pristine ng-empty ng-valid-min ng-valid-max ng-invalid ng-invalid-required ng-touched freeq_quan_input" ng-model="myModel.minMaxNumber" min="10" max="100" required="" style="" type="number"> -->
+                                    <input name="YearlyImgEdit" placeholder="Quantity"
+                                           class="form-control ng-pristine ng-empty ng-valid-min ng-invalid ng-invalid-required ng-touched freeq_quan_input"
+                                           ng-model="myModel.YearlyImgEdit" max="200" ng-required="currentStep == 2"
+                                           type="number">
+                                    <span class="error text-small block" ng-if="Form.YearlyImgEdit.$error.required">Field is required</span>
+                                    <!-- <span class="error text-small block" ng-if="Form.yearly-img-edit.$error.max">Number must not be higher than 10!</span>
+                                    <span class="error text-small block" ng-if="Form.yearly-img-edit.$error.number">Not valid number!</span> -->
+                                </div>
+
+
+                            </div>
+
+
+                            <div style="clear: both;"></div>
+                            <div class="col-md-12">
+                                <div class="form-group custom_input_container"
+                                     ng-class="{'has-error':Form.gender.$dirty &amp;&amp; Form.gender.$invalid, 'has-success':Form.gender.$valid}">
+                                    <fieldset class="drop_file_fieldset_style">
+                                        <legend>Upload some more samples to get the right price</legend>
+                                        <label style="font-size: 13px">To allow us to quote the right price (not too
+                                            low
+                                            or too high) we ask you to upload 3 - 10 sample images for us to do an
+                                            average price. If you only upload one image for the trial we will base
+                                            our
+                                            quote on this one image.</label>
+
+                                        <div class="col-md-3">
+                                            <div class="drop_file_area">
+                                                <center><p>Drop file here</p></center>
+                                            </div>
+                                            <div ng-show="uploaderImages.isHTML5" class="">
+                                                <div class="well my-drop-zone" nv-file-over=""
+                                                     uploader="uploaderImages">
+                                                    Base drop zone
+                                                </div>
+                                                <div nv-file-drop="" uploader="uploaderImages"
+                                                     options="{ url: '/foo' }">
+                                                    <div nv-file-over="" uploader="uploaderImages"
+                                                         over-class="another-file-over-class"
+                                                         class="well my-drop-zone">
+                                                        Another drop zone with its own settings
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 or_div"><p>or</p></div>
+                                        <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                                        <div class="col-md-3">
+							                	<span class="btn btn-primary btn-o btn-file free_q_upld_btn">
+							                    Select file
+							                    <input nv-file-select="" uploader="uploaderImages" multiple=""
+                                                       type="file">
+							                </span>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-md-3 form-actions next_step_btn pull-right">
+                                <button class="btn btn-dark-azure btn-block form_btn user_setting_btn"
+                                        ng-click="form.prev(Form)">
+                                    <i class="fa fa-circle-arrow-left"></i> Back
+                                </button>
+                                <button class="btn btn-dark-azure btn-block form_btn user_setting_btn"
+                                        ng-click="form.next(Form)">
+                                    Next <i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- end: WIZARD STEP 2 -->
+
+
+                    <!-- start: WIZARD STEP 3 -->
+                    <div id="step-3" ng-show="currentStep == 3">
+                        <div class="row steps_content_container">
+                            <div class="step3_content_area">
+                                <div class="col-md-12">
+                                    <fieldset class="free_trialq_acc_info" ng-hide="userLoggedin"
+                                              ng-class="{'ng-hide':Form.loggedin}">
+                                        <legend>Account information</legend>
+                                        <div class="row-fluid overFlowNone">
+                                            <div class="col-md-6">
+                                                <div class="form-group custom_input_container"
+                                                     ng-class="{'has-error':Form.client_name.$dirty && Form.client_name.$invalid, 'has-success':Form.client_name.$valid}">
+                                                    <label> Your name </label>
+                                                    <input type="text"
+                                                           placeholder="John doe"
+                                                           class="form-control"
+                                                           name="client_name"
+                                                           minlength="3"
+                                                           maxlength="55"
+                                                           style="color: #9c9ca0;"
+                                                           ng-model="myModel.client_name"
+                                                           ng-required="currentStep == 3"/>
+
+                                                <span class="error text-small block"
+                                                      ng-if="Form.client_name.$dirty && Form.client_name.$invalid">Name is required</span>
+                                                <span class="success text-small"
+                                                      ng-if="Form.client_name.$valid">Thank You!</span>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group custom_input_container"
+                                                     ng-class="{'has-error':Form.client_email.$dirty && Form.client_email.$invalid, 'has-success':Form.client_email.$valid}">
+                                                    <label> E-mail </label>
+                                                    <input type="email" placeholder="john@domain.com"
+                                                           class="form-control"
+                                                           name="client_email" style="color: #9c9ca0;"
+                                                           ng-model="myModel.client_email"
+                                                           autocomplete="off"
+                                                           ng-blur="form.usercheck(Form);"
+                                                           ng-required="currentStep == 3"
+                                                            />
+
+
+                                                    <span class="error text-small block"
+                                                          ng-if="Form.client_email.$dirty && Form.client_email.$error.required">Email is required.</span>
+                                                    <span class="error text-small block"
+                                                          ng-if="Form.client_email.$error.email">Please, enter a valid email address.</span>
+                                                        <span class="success text-small"
+                                                              ng-if="Form.client_email.$valid">It's a valid e-mail!</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row-fluid overFlowNone">
+
+                                            <div class="col-md-6">
+                                                <div id="password_portion" class="form-group custom_input_container"
+                                                     ng-class="{'has-error':Form.password.$dirty && Form.password.$invalid, 'has-success':Form.password.$valid}">
+                                                    <label> Password </label>
+
+                                                    <input type="password"
+                                                           placeholder="Minimum 6 charecter"
+                                                           class="form-control"
+                                                           name="password"
+                                                           style="color: #9c9ca0;"
+                                                           ng-model="myModel.password"
+                                                           minlength="6"
+                                                           maxlength="12"
+                                                           ng-blur="form.usercheck(Form);"
+                                                           ng-required="currentStep == 3"/>
+
+
+                                                <span class="error text-small block"
+                                                      ng-if="Form.password.$dirty && Form.password.$error.required">Password is required.
+                                                </span>
+                                                <span class="success text-small block"
+                                                      ng-if="Form.password.$valid">Ok!
+                                                </span>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group custom_input_container">
+                                                    <div class="form-group">
+                                                        <label> How did you find us? </label>
+                                                    <span class="clip-select">
+							                            <select name="findus"
+                                                                class="form-control" ng-model="myModel.findus">
+                                                            <option value="">&nbsp;</option>
+                                                            <option value="SM">Socia Media</option>
+                                                            <option value="SE">Search Engine</option>
+                                                            <option value="BF">By Friend</option>
+                                                        </select>
+													</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group custom_input_container"
+                                                     ng-class="{'has-error':Form.client_check.$invalid, 'has-success':Form.client_check.$valid}">
+                                                    <input type="hidden" class="form-control" name="client_check"
+                                                           ng-model="myModel.client_check"
+                                                           ng-required="currentStep == 3">
+                                                    <span class="error text-small block"
+                                                          ng-if=" Form.client_check.$error.required">Provided email is already exists in our system. Your user and password does not matches. Use the correct password.
+                                                    If  <a href="#" ng-click="form.openFogetPass()">forgot password</a>, you may use another email or <a
+                                                                href="#" ng-click="openFogetPass(Form)">reset
+                                                            password</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+
+
+                                    <fieldset class="free_trialq_acc_info">
+                                        <legend>Company information</legend>
+                                        <div class="col-md-6">
+                                            <div class="form-group custom_input_container"
+                                                 ng-class="{'has-error':Form.companyname.$dirty && Form.companyname.$invalid, 'has-success':Form.companyname.$valid}">
+                                                <label> Company name </label>
+                                                <input placeholder="Example company ltd"
+                                                       class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required"
+                                                       name="companyname" type="text" ng-model="myModel.companyname"
+                                                       ng-required="currentStep == 3">
+
+                                                <span class="error text-small block"
+                                                      ng-if="Form.companyname.$dirty && Form.companyname.$invalid"> Name is required</span>
+                                                <!-- <span class="success text-small" ng-if="Form.companyname.$valid">Thank You!</span> -->
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group custom_input_container"
+                                                 ng-class="{'has-error':Form.website.$dirty && Form.website.$invalid, 'has-success':Form.website.$valid}">
+                                                <label> Website </label>
+                                                <input type="text" placeholder="www.example.com"
+                                                       class="form-control"
+                                                       name="website" style="color: #9c9ca0"
+                                                       ng-model="myModel.website"
+                                                       ng-pattern="/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/"
+                                                       ng-required="currentStep == 3"/>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.website.$dirty && Form.website.$error.required">website is required!</span>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.website.$error.pattern">Not Valid website!</span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group custom_input_container">
+                                                <label> Company type </label>
+                                                <span class="clip-select">
+					                            <select name="company_type"
+                                                        class="form-control ng-pristine ng-valid ng-empty ng-touched"
+                                                        style="" ng-model="myModel.company_type">
+                                                    <option value="">&nbsp;</option>
+                                                    <option value="1">Image Process</option>
+                                                    <option value="2">Ecommerce</option>
+                                                    <option value="3">Photo Studio</option>
+                                                    <option value="4">Corporate</option>
+                                                </select>
+					                        </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group custom_input_container"
+                                                 ng-class="{'has-error':Form.CompanyRole.$dirty &amp;&amp; Form.CompanyRole.$invalid, 'has-success':Form.CompanyRole.$valid}">
+                                                <label> Your role in the company </label>
+                                                <span class="clip-select">
+						                            <select name="CompanyRole"
+                                                            class="form-control ng-pristine ng-empty ng-touched ng-invalid ng-invalid-required"
+                                                            ng-model="myModel.CompanyRole"
+                                                            ng-required="currentStep == 3">
+                                                        <option value="">&nbsp;</option>
+                                                        <option value="1">manager</option>
+                                                        <option value="2">Ass manger</option>
+                                                        <option value="3">Manager</option>
+                                                        <option value="4">CEO</option>
+                                                    </select>
+						                             <span class="error text-small block"
+                                                           ng-if="Form.CompanyRole.$dirty && Form.CompanyRole.$error.required">this field is required.</span>
+			        								</span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div id="" class="form-group custom_input_container"
+                                                 ng-class="{'has-error':Form.country.$dirty && Form.country.$invalid, 'has-success':Form.country.$valid}">
+                                                <label> Country </label>
+                                                <span class="clip-select">
+						                            <select name="country"
+                                                            class="form-control ng-pristine ng-valid ng-empty ng-touched"
+                                                            ng-model="myModel.country"
+                                                            ng-required="currentStep == 3">
+                                                        <option value="">&nbsp;</option>
+                                                        <option value="ban">Bangladesh</option>
+                                                        <option value="ind">India</option>
+                                                        <option value="usa">Usa</option>
+                                                        <option value="aus">Australia</option>
+                                                    </select>
+						                            <span class="error text-small block"
+                                                          ng-if="Form.country.$dirty && Form.country.$error.required">this field is required.</span>
+			        								</span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group custom_input_container"
+                                                 ng-class="{'has-error':Form.phone.$dirty && Form.phone.$invalid, 'has-success':Form.phone.$valid}">
+                                                <label for="form-field-mask-2">
+                                                    Phone
+                                                </label>
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"> <i
+                                                            class="fa fa-phone"></i>  +44 </span>
+                                                    <input class="form-control ng-valid ng-valid-mask ng-empty ng-touched ng-dirty ng-valid-parse"
+                                                           name="phone" ui-mask="(999) 999-9999" ng-model="phone"
+                                                           type="text" ng-required="currentStep == 3">
+
+                                                </div>
+                                                <span class="error text-small block"
+                                                      ng-if="Form.phone.$dirty && Form.phone.$error.required">this field is required.</span>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group checkbox clip-check check-primary">
+                                            <input type="checkbox" name="terms" ng-model="terms" id="remember"
+                                                   value="1"
+                                                   ng-required="currentStep == 3">
+                                            <label for="remember"> I agree to the <a href="#">terms &
+                                                conditions </a></label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group col-md-3 form-actions next_step_btn pull-right">
+
+                                        <button class="btn btn-dark-azure btn-block form_btn user_setting_btn"
+                                                ng-click="form.prev(Form)">
+                                            <i class="fa fa-circle-arrow-left"></i> Back
+                                        </button>
+
+                                        <button type="submit" ng-disabled="Form.$invalid"
+                                                class="btn btn-dark-azure btn-block form_btn user_setting_btn"
+                                                _ng-click="form.next(Form)">
+                                            Submit
+                                        </button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- end: WIZARD STEP 3 -->
+
+
+                </div>
+
+
+            </form>
+            <!-- end: WIZARD FORM -->
+        </div>
+
+
+    </div>
+</div>
+
+
+<!-- end: LOGIN -->
+

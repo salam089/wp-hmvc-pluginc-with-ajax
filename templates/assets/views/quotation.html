@@ -1,0 +1,619 @@
+<!-- start: LOGIN -->
+
+
+<div class="row" ng-controller="quotationCtrl2">
+    <div class="free_queto_area center-block">
+
+
+
+      <form id="form1" name="Form" method="POST" novalidate
+              enctype="multipart/form-data" data-ng-controller="DemoFileUploadController" data-file-upload="options"
+              data-ng-class="{'fileupload-processing': processing() || loadingFiles}" novalidate
+              ng-submit="form.submit(Form)">
+            <!-- <form class="form_qurote_guest" name="Form" id="quote_form" novalidate ng-submit="form.submit(Form)"> -->
+
+
+<!-- FORM TITLE AREA -->
+        <div class="row">
+          <div class="col-md-12">    
+            <h1 class="formTitle log-box-title">
+                Get a quote
+            </h1>
+          </div>
+        </div>
+<!-- FORM TITLE AREA END -->
+
+
+
+<!-- error messages -->
+        <div class="row">
+          <div class="col-md-12">
+              <div class="list-group overflw_hidden nomargin">
+                  <div class="list-group-item list-group-item-danger" href="#" ng-show="quotatioError">
+                      {{quotationErrorMsg }}
+                  </div>
+                  <div class="list-group-item list-group-item-danger" href="#" ng-show="quotationSuccess">
+                      {{quotationSuccessMsg }}
+                  </div>
+              </div>
+          </div>
+        </div>
+<!-- error messages -->
+
+
+
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group custom_input_container"
+                         ng-class="{'has-error':Form.client_name.$dirty &&  Form.client_name.$dirty && Form.client_name.$invalid, 'has-success':Form.client_name.$valid}">
+                        <label> Your name </label>
+            	                    <span class="input-icon">
+            	                        <input style="color: #9c9ca0;" type="text" placeholder="John Doe"
+                                               class="free_q_topinpt form-control" required name="client_name"
+                                               ng-minlength="3"
+                                               ng-maxlength="55" ng-model="qtModel.client_name">
+            	                        <i class="ti-user"></i>
+            	                    </span>
+                            <span class="error text-small block"
+                                  ng-if="Form.client_name.$dirty && Form.client_name.$error.required">User name is required. </span>
+                                <span class="success text-small" ng-if="Form.client_name.$valid">Thank you.</span>
+                        <span class="error text-small block"
+                              ng-if="Form.client_name.$error.minlength">Charecter length should be minimum 3 . </span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group custom_input_container"
+                         ng-class="{'has-error':Form.client_email.$dirty && Form.client_email.$invalid, 'has-success':Form.client_email.$valid}">
+                        <label> E-mail </label>
+            	                    <span class="input-icon">
+            	                        <input class="freeq_email_input form-control" type="email"
+                                               placeholder="example@domain.com" class="free_q_topinpt form-control"
+                                               name="client_email"
+                                               ng-model="qtModel.client_email" required>
+            	                        <i class="ti-email"></i>
+            	                    </span>
+                            <span class="error text-small block"
+                                  ng-if="Form.client_email.$dirty && Form.client_email.$error.required">Email is required.</span>
+                        <span class="error text-small block" ng-if="Form.client_email.$error.email">Please, enter a valid email address.</span>
+                        <span class="success text-small" ng-if="Form.client_email.$valid">It's a valid e-mail!</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group custom_input_container"
+                         ng-class="{'has-error':Form.quotation_details.$dirty && Form.quotation_details.$invalid, 'has-success':Form.quotation_details.$valid}">
+                        <label> Let us know what to do with your image</label>
+                                <textarea name="quotation_details" id="form-field-23" class="form-control limited noradius custom_textarea"
+                                          ng-model="qtModel.quotation_details" required></textarea>
+                                <span class="error text-small block"
+                                      ng-if="Form.quotation_details.$dirty && Form.quotation_details.$error.required">Quotation details is required.</span>
+
+                    </div>
+                </div>
+            </div>
+
+
+<!-- yearly quantity -->
+            <div class="row">
+
+
+              <div class="col-md-12">
+                <div class="form-group _free_q_quantity_field"
+                     ng-class="{'has-error':Form.quantity.$dirty && Form.quantity.$invalid, 'has-success':Form.quantity.$valid}">
+                  <label class="control-label">How many images should we provide a quote for?</label>                    
+                        <input type="number" name="quantity" ng-model="qtModel.quantity" placeholder="Quantity"
+                               class="form-control freeq_quan_input"
+                               min="1"
+                               max="200"
+                               required>
+                        <span class="error text-small block" ng-if="Form.quantity.$dirty && Form.quantity.$error.required">Field is required</span>
+                    </div>
+                </div>
+    
+                <!-- drop down portion starts -->
+                      <div class="col-md-12 yrly_edited_area">
+                        <div class="form-group custom_input_container"
+                          ng-class="{'has-error':Form.yearlyImgEdit.$dirty  && Form.yearlyImgEdit.$invalid, 'has-success':Form.yearlyImgEdit.$valid}">
+                          <label for="yearly quantity">Roughly how many images do you need edited on a yearly basis?</label>
+                         
+                              <div class="clip-select freeq_quan_input">                
+                                <select name="yearlyImgEdit" ng-model="qtModel.yearlyImgEdit"
+                                  class="form-control"  ng-init="somethingHere = options[0]" required>
+                                    <option value="" selected="selected">Select</option>
+                                    <option id=vs>Just one-off</option>
+                                    <option id=s>Just a few, less than 100</option>
+                                    <option id=m>Less than 1,000</option>
+                                    <option id=l>1,000 - 10,000</option>
+                                    <option id=vl>More than 10,000</option>
+                                    </option>
+                                </select>
+                              </div>
+                            <span class="error text-small block"
+                            ng-if="Form.yearlyImgEdit.$dirty && Form.yearlyImgEdit.$error.required">This field is required.</span>
+                        </div>
+                      </div>
+                <!-- drop down portion ends -->
+
+
+            </div> 
+<!-- yearly quantity -->
+
+
+
+            
+            <!-- output image size portion starts -->
+            <div class="row">
+              <div class="col-md-12 resize_option">
+                <label> Output image size</label>
+                <p style="font-size: 13px">Resizing is free and we offer discount for choosing
+                  smaller
+                image size, because they are quicker to process.</p>
+                <div class="radio_content freeq_radio">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="check_radio_content resizeto_checkcontent">
+                        <div class="radio clip-radio radio-primary custom_radio"
+                          ng-class="{'has-error':Form.sizing.$dirty && Form.sizing.$invalid, 'has-success':Form.sizing.$valid}">
+                          <span class="error text-small block"
+                          ng-if="Form.sizing.$dirty && Form.sizing.$error.required">Choose a sizing option</span>
+                          <input type="radio"
+                          id="sizing"
+                          name="sizing"
+                          value="r"
+                          ng-model="qtModel.sizing"
+                          required
+                          ng-click="resizeTo()">
+                          <label for="sizing">
+                            Resize to
+                          </label>
+                        </div>
+                        <div class="img_reaize_opt" ng-show="qtModel.sizing == 'r'">
+                          <div class="row">
+                            <div class="width_height_portion">
+                              <div class="col-md-4 width_content">
+                                <div class="form-group"
+                                  ng-class="{'has-error':Form.width.$dirty && Form.width.$invalid || Form.height.$dirty && Form.height.$invalid, 'has-success':Form.width.$valid}">
+                                  <label>width</label>
+                                  <div class="input-group">
+                                    <!--<input class="form-control" type="text"-->
+                                    <!--name="width" ng-model="qtModel.width"-->
+                                    <!--ng-required="qtModel.sizing">-->
+                                    <input class="form-control" type="number" name="width"
+                                    ng-model="qtModel.width"
+                                    min="1"
+                                    max="9999"
+                                    minlength="1"
+                                    maxlength="4"
+                                    maxlength
+                                    ng-required="qtModel.sizing == 'r' && !qtModel.height">
+                                    <span class="input-group-addon px_input">px</span>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="error text-small block clear"
+                                      ng-if=" (Form.width.$dirty && Form.width.$invalid)">
+                                      Enter your required size
+                                    </div>
+                                  </div>
+                                  
+                                </div>
+                              </div>
+                              <div class="col-md-8 height_content">
+                                <div class="form-group"
+                                  ng-class="{'has-error':Form.height.$dirty && Form.height.$invalid, 'has-success':Form.height.$valid}">
+                                  <label>height</label>
+                                  <div class="input-group">
+                                    <!--<input class="form-control" type="text"-->
+                                    <!--name="height" ng-model="qtModel.height"-->
+                                    <!--ng-required="qtModel.sizing">-->
+                                    <input class="form-control" type="number"
+                                    name="height"
+                                    min="1"
+                                    max="9999"
+                                    minlength="1"
+                                    maxlength="4"
+                                    maxlength
+                                    ng-model="qtModel.height"
+                                    ng-required=" qtModel.sizing == 'r' && !qtModel.width"/>
+                                    <span class="input-group-addon px_input">px</span>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="error text-small block clear"
+                                      ng-if=" (Form.height.$dirty && Form.height.$invalid) ">
+                                      Enter your required size
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 margin_container form-group"
+                              ng-class="{'has-error':Form.sizing_margin.$dirty, 'has-success':Form.sizing_margin.$valid}">
+                              <div class="checkbox clip-check check-primary check_box">
+                                <input id="sizing_margin" value="1"
+                                name="sizing_margin_opt" ng-model="qtModel.sizing_margin_opt"
+                                type="checkbox">
+                                <label for="sizing_margin">
+                                  margin
+                                </label>
+                              </div>
+                              <input name="sizing_margin" ng-model="qtModel.sizing_margin"
+                              style="color: #9c9ca0;" type="number" min="1"
+                              max="99"
+                              ng-min="1" ng-max="99"
+                              min="1"
+                              max="99"
+                              minlength="1"
+                              maxlength="2"
+                              ng-required="qtModel.sizing_margin_opt == '1'"
+                              ng-keyup="maxVal(Form.sizing_margin);"
+                              ng-disabled="!qtModel.sizing_margin_opt"
+                              />
+                              <select id="form-field-select-1"
+                                ng-disabled="!qtModel.sizing_margin_opt"
+                                class="form-control margin_select"
+                                name="resizeMarginType"
+                                ng-model="qtModel.resizeMarginType">
+                                <option slected value="px">px</option>
+                                <option value="%">%</option>
+                              </select>
+                              <div class="col-md-12">
+                                <div class="pullerror text-small block error clear"
+                                  ng-if="Form.sizing_margin.$dirty && Form.sizing_margin.$error.required">
+                                  This field is required.
+                                </div>
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="check_radio_content keep_origin_content">
+                        <div class="radio clip-radio radio-primary">
+                          <input type="radio" id="keep_original" name="sizing" value="o"
+                          ng-model="qtModel.sizing" required ng-click="keepOrginal()">
+                          <label for="keep_original">
+                            Keep original size
+                          </label>
+                        </div>
+                        <div class="img_reaize_opt row" ng-show="qtModel.sizing == 'o'">
+                          <div class="col-md-12 margin_container">
+                            <div class="form-group"
+                              ng-class="{'has-error':Form.original_margin.$dirty, 'has-success':Form.original_margin.$valid}">
+                              <div class="checkbox clip-check check-primary check_box">
+                                <input id="checkbox7" name="original_margin_chk" value="1"
+                                ng-model="qtModel.original_margin_chk"
+                                type="checkbox">
+                                <label for="checkbox7">
+                                  margin
+                                </label>
+                              </div>
+                              <input type="number" class="form-control"
+                              ng-model="qtModel.original_margin" name="original_margin"
+                              style="color: #9c9ca0;"
+                              min="1"
+                              max="99"
+                              minlength="1"
+                              maxlength="2"
+                              ng-disabled="!qtModel.original_margin_chk"
+                              ng-required="qtModel.original_margin_chk == '1'">
+                              <select class="form-control margin_select"
+                                name="orginalMarginType"
+                                ng-disabled="!qtModel.original_margin_chk"
+                                ng-model="qtModel.orginalMarginType">
+                                <option slected value="px">px</option>
+                                <option value="%">%</option>
+                              </select>
+                              <div class="col-md-12">
+                                <span class="pullerror text-small block error clear"
+                                ng-if="Form.original_margin.$dirty && Form.original_margin.$error.required">This field is required.</span>
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- output image size portion ends -->
+            
+
+
+            <div class="row overflw_hidden">
+                <div class="col-md-12 form-group custom_input_container">
+
+                    <!-- Redirect browsers with JavaScript disabled to the origin page -->
+                    <noscript><input type="hidden" name="redirect"
+                                     value="https://blueimp.github.io/jQuery-File-Upload/"></noscript>
+                    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+
+
+                    <div class="row">
+                        <div class="col-md-12 quotation-upoader">
+                            <label>Upload sample image(s) </label>
+                            <span class="text-extra-large margin-bottom-10">
+                                <!-- <a href="#" uib-tooltip="I am a dynamic Tooltip text" class="ng-binding">
+                                    <i class=" ti-help"></i>
+                                </a> -->
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="well my-drop-zone drop_file_area center-block" nv-file-over="" uploader="uploaderImages">
+                                <center><p>Drop files here</p></center>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 or_div center-block"><p>or</p></div>
+
+                        <div class="col-md-7 nopadding">
+                                  <span class="visible-lg visible-md btn btn-primary btn-o btn-file free_q_upld_btn">
+                                  Select files
+                                   <input type="file" name="files[]" multiple ng-disabled="disabled">
+                                  </span>
+
+                          <span class="btn btn-primary btn-o btn-file center-block free_q_upld_btn visible-sm visible-xs" style="width: 100px">
+                            Select files
+                             <input type="file" name="files[]" multiple ng-disabled="disabled">
+                          </span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="form-group overflw_hidden"
+                                 ng-class="{'has-error':Form.uploadid.$dirty && Form.uploadid.$invalid, 'has-success':Form.uploadid.$valid}">
+                                <div class="input-group">
+
+                                    <input class="form-control" type="hidden" value="55" name="quoteImgfolder"
+                                           id="quoteImgfolder"
+                                           ng-model="qtModel.quoteImgfolder" required>
+
+
+
+                                </div>
+                                <div class="error text-small block"
+                                     ng-if="Form.uploadid.$dirty && Form.uploadid.$error.required">Upload Images.
+                                </div>
+                            </div>
+
+
+                            <div ng-hide="true" class="uploading-count" align="center">
+                                <p>File uploaded <span class="label label-success uploaded-count">{{$parent.numberOfFiles}}{{numberOfFiles}}</span>
+                                    of <span class="label label-warning queue-count">{{queue.length}}</span></p>
+                            </div>
+                            <div ng-show="showTotalUploadedCount" class="total-uploaded-count show" align="center">
+                                <p><span class="badge badge-success total-uploaded-count2">{{queue.length}}  File(s) uploaded</span>
+                                </p>
+
+                            </div>
+                            <style>
+                                .showUploadWarning{display: block!important;}
+
+                            </style>
+
+                                <div class="alert alert-block alert-warning fade in" ng-class="alreadyAddedFile.length >0 ? 'showUploadWarning' : ''"  ng-hide="alreadyAddedFile? false : true">
+                                    <button data-ct-dismiss="alert" class="close" type="button" ng-click="closeWarning()">
+                                        ×
+                                    </button>
+                                    <h4 class="alert-heading margin-bottom-10"><i class="ti-alert"></i> Warning!</h4>
+                                    <p class="margin-bottom-10">
+                                        The following files are already exists on the queue or have already being uploaded:
+
+                                    </p>
+                                    <div style="display:block;">
+                                        <p data-ng-repeat="xfile in alreadyAddedFile">{{xfile}}, &nbsp;</p>
+                                    </div>
+
+
+                                </div>
+
+
+
+                            <!--<div class="alert alert-warning" data-ng-repeat="xfile in alreadyAddedFile">-->
+                                <!--<button data-ct-dismiss="alert" class="close">-->
+                                    <!--×-->
+                                <!--</button>-->
+                                <!--<strong>Warning!</strong>-->
+                                 <!--{{alreadyAddedFile}}-->
+                                <!--<a class="alert-link" href="#"> not looking too good </a>-->
+                                <!--.-->
+                            <!--</div>-->
+
+                            <!-- The table listing the files available for upload/download -->
+                            <table class="table table-striped files ng-cloak upld_info_table">
+
+                                <thead>
+                                <tr>
+                                    <th width="50%">Name</th>
+                                    <th>Size</th>
+                                    <!--  <th>progress</th> -->
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr data-ng-repeat="file in queue" data-ng-class="{'processing': file.$processing()}">
+
+                                    <td data-ng-switch data-on="!!file.url" class="preview_td">
+
+
+                                        <div class="preview" data-ng-switch-when="true">
+
+                                            <a data-ng-href="{{file.url}}" title="{{file.name}}"
+                                               download="{{file.name}}"
+                                               data-gallery><img data-ng-src="{{file.url}}" alt="rertretretret"></a>
+                                        </div>
+                                        <div class="preview" data-ng-switch-default
+                                             data-file-upload-preview="file"></div>
+
+
+                                        <p class="name preview_img_title" data-ng-switch data-on="!!file.url">
+                                                            <span data-ng-switch-when="true" data-ng-switch
+                                                                  data-on="!!file.thumbnailUrl">
+                                                                <a data-ng-switch-when="true"
+                                                                   data-ng-href="{{file.url}}" title="{{file.name}}"
+                                                                   download="{{file.name}}"
+                                                                   data-gallery>{{file.name}}</a>
+                                                                <a data-ng-switch-default data-ng-href="{{file.url}}"
+                                                                   title="{{file.name}}" download="{{file.name}}">{{file.name}}</a>
+                                                            </span>
+                                            <span data-ng-switch-default>{{file.name}}</span>
+                                        </p>
+                                        <strong data-ng-show="file.error"
+                                                class="error text-danger">{{file.error}}</strong>
+
+
+                                    </td>
+                                    <td>
+                                        <p class="size">{{file.size | formatFileSize}}</p>
+                                    </td>
+                                    <!-- <td>
+                                         <div class="progress progress-striped active fade" data-ng-class="{pending: 'in'}[file.$state()]" data-file-upload-progress="file.$progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+                                    </td> -->
+
+
+                                    <td>
+                                        <button type="button" class="btn btn-primary start btn-sm"
+                                                data-ng-click="file.$submit()"
+                                                data-ng-hide="!file.$submit || options.autoUpload"
+                                                data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
+                                            <span class="glyphicon glyphicon-upload"></span> Start
+                                        </button>
+                                        <button type="button" class="btn btn-warning cancel btn-sm"
+                                                data-ng-click="file.$cancel()" data-ng-hide="!file.$cancel">
+                                            <span class="glyphicon glyphicon-ban-circle"></span>
+                                            Cancel
+                                        </button>
+                                        <button data-ng-controller="FileDestroyController" type="button"
+                                                class="btn btn-danger destroy btn-sm" data-ng-click="file.$destroy()"
+                                                data-ng-hide="!file.$destroy">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                            Delete
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+
+
+                                <!--<tr ng-if="queue[0]">-->
+                                    <!--<td colspan="4">-->
+                                        <!--<div class="row fileupload-buttonbar">-->
+                                            <!--<div class="col-lg-7">-->
+
+                                                <!--&lt;!&ndash; The fileinput-button span is used to style the file input field as button &ndash;&gt;-->
+
+                                                <!--<button type="button" class="btn btn-primary start btn-sm"-->
+                                                        <!--data-ng-click="submit()">-->
+                                                    <!--<span class="glyphicon glyphicon-upload"></span> Start upload-->
+                                                <!--</button>-->
+
+
+                                                <!--<button type="button" class="btn btn-warning cancel btn-sm"-->
+                                                        <!--data-ng-click="cancel()">-->
+                                                    <!--<span class="glyphicon glyphicon-ban-circle"></span> Cancel-->
+                                                <!--</button>-->
+
+                                                <!--&lt;!&ndash; The global file processing state &ndash;&gt;-->
+                                                <!--<span class="fileupload-process"></span>-->
+                                            <!--</div>-->
+
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <!--&lt;!&ndash; The global progress state &ndash;&gt;-->
+                                    <!--<div class="fade progress_area" data-ng-class="{in: active()}">-->
+                                        <!--&lt;!&ndash; The global progress bar &ndash;&gt;-->
+                                        <!--<div class="progress progress-striped active"-->
+                                             <!--data-file-upload-progress="progress()">-->
+                                            <!--<div class="progress-bar progress-bar-success"-->
+                                                 <!--data-ng-style="{width: num + '%'}"></div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
+                                <!--</tr>-->
+                                </tbody>
+
+
+                            </table>
+
+
+                        </div>
+
+                    </div>
+
+
+                  <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
+                        <div class="slides"></div>
+                        <h3 class="title"></h3>
+                        <a class="prev">‹</a>
+                        <a class="next">›</a>
+                        <a class="close">×</a>
+                        <a class="play-pause"></a>
+                        <ol class="indicator"></ol>
+                    </div>
+
+
+                    <!--file upoload portion end-->
+
+
+                  <div class="row"> 
+                      <div  class="col-md-6">
+                        <div class="google_captcha_area"> 
+                            <p> Google captcha goes here</p>
+                        </div>  
+                      </div>
+                      <div  class="col-md-6">
+                        
+                      </div>
+                  </div>  
+
+
+
+                    <div class="row overflw_hidden">
+                        <div class="form-group custom_input_container">
+
+                            <div class="col-md-12 form-actions free_quote_form_btn">
+                                <button type="submit" [disabled]="!Form.valid"
+                                        class="btn btn-dark-azure btn-block form_btn">
+                                    <span>GET QUOTE</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </form>
+        <!--<pre class="margin-top-20">{{ qtModel | json }}</pre>-->
+
+
+    </div>
+
+</div>

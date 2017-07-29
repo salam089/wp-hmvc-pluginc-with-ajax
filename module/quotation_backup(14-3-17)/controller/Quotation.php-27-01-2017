@@ -1,0 +1,559 @@
+<?php
+
+
+class Quotation
+{
+    use loader;
+
+
+    public $user_id;
+    public $quotation_id;
+    public $rurl;
+    public $db;
+
+    public function __construct($user_id = NULL)
+    {
+        global $wpdb;
+        $database = $wpdb;
+        $this->db = $database;
+
+
+        $this->loadModel(get_class($this));
+        $this->loadController("Users");
+        //$this->loadHelper('path');
+
+        if ($user_id) {
+
+            $this->user_id = $user_id;
+
+        }elseif (is_user_logged_in()) {
+
+            $this->user_id = get_current_user_id();
+
+            // Initiate local database
+
+        }
+
+
+    }
+
+    /**
+     * @Author: Mamun
+     */
+
+    public function updatePotentialClient()
+    {
+
+        $data = array(
+            'user_id' => $this->user_id,
+            'conversion_status' => 1,
+            'modify_date' => dateTime()
+        );
+        $this->db->update(POTENTIAL_CLIENT_TABLE, $data, array('id' => $_REQUEST['pcid']));
+        //return true;
+    }
+
+    /**
+     * @Author: Mamun
+     */
+
+    public function updateQuotation()
+    {
+
+        $data = array(
+            'user_id' => $this->user_id,
+            'modify_date' => dateTime()
+        );
+
+        $this->db->update(QUOTATION_TABLE, $data, array('id' => $_REQUEST['id']));
+
+    }
+
+    /**
+     * @Author: Mamun
+     */
+
+    public function getQuotationDetails($invoice_ids)
+    {
+
+        return $this->db->get_row("
+			SELECT id,vendor, user_id,billing_name,billing_address,quotation_date, quotation_no, total_net, total_tax,tax_no,
+                        vat_number,payment_instructions,notes,email_sent,username,currency, paid_in_full,total_gross,tax_rate,vendor_address,
+                        potential_client_id,sizing,width,height,margin,marginType,quantity
+			FROM " . QUOTATION_TABLE . "
+			WHERE id = $invoice_ids
+			", ARRAY_A
+        );
+
+    }
+
+    /**
+     * @Author: Mamun
+     */
+
+    public function getQuotationItemsDetails($quotation_id)
+    {
+
+        return $this->db->get_results("
+			SELECT *
+			FROM " . QUOTATION_ITEMS_TABLE . "
+			WHERE quotation_id = " . $quotation_id, ARRAY_A
+        );
+
+    }
+
+    /**
+     * @Author: Mamun
+     */
+
+    public function getItemsSum($quotation_id)
+    {
+
+        return $this->db->get_row("
+			SELECT
+				SUM(job_id) job_id,
+				SUM(net_price_per_unit) net_price_per_unit,
+				SUM(no_of_units) no_of_units,
+				SUM(discount_amount) discount_amount,
+				SUM(net_price_for_item) net_price_for_item,
+				SUM(tax_for_item) tax_for_item,
+				SUM(gross_price_for_item) gross_price_for_item
+			FROM " . QUOTATION_ITEMS_TABLE . "
+			WHERE quotation_id = " . $quotation_id . "
+			", ARRAY_A
+        );
+
+    }
+
+    /**
+     * @Author: Mamun
+     */
+
+    public function getCurrency()
+    {
+
+        $query = $this->db->get_row("
+			SELECT currency
+			FROM " . QUOTATION_TABLE . "
+			WHERE user_id = " . $this->user_id . "
+			AND paid_in_full = 0
+			LIMIT 1
+		");
+        return ($query->currency) ? $query->currency : null;
+
+    }
+
+    /**
+     * @Author: Mamun
+     */
+
+    public function processContactDetails()
+    {
+
+        $this->rurl = 'quotation-preview.html?id=' . $_REQUEST['id'] . '&pcid=' . $_REQUEST['pcid'] . '&secret_key=' . $_REQUEST['secret_key'];
+
+        if (isset($_POST['order_step_2'])) {
+
+            $error = null;
+
+            if (!$_POST["contact_name"]) {
+
+                $error .= "<li>Please enter your name</li>";
+            }
+            if (!$_POST['email']) {
+
+                $error .= "<li>Please enter your email address</li>";
+            }
+            if (!$_POST["country"]) {
+
+                $error .= "<li>Please select your country</li>";
+            }
+            if (!$_POST["find_us"]) {
+
+                $error .= "<li>Please select how you found us</li>";
+            }
+            if (!is_email($_POST['email'])) {
+
+                $error .= '<li>Invalid email address</li>';
+            }
+            if (!isset($_POST['create_account'])) {
+
+                $error .= '<li>Please choose below whether you want to create an account or submit request as guest</li>';
+            }
+
+            $GLOBALS['contact_name'] = $_POST["contact_name"];
+
+            $GLOBALS['email'] = $_POST["email"];
+
+            $GLOBALS['company_name'] = $_POST["company_name"];
+
+            $GLOBALS['country'] = $_POST["country"];
+
+            $GLOBALS['find_us'] = $_POST["find_us"];
+
+            $GLOBALS['username'] = $_POST["username"];
+
+
+            if ($error) {
+
+                $error = "<ul>" . $error . "</ul>";
+
+                define('ERROR', $error);
+
+            } else {
+
+                if ($_POST['create_account'] == 0) {
+
+                    wp_redirect($this->rurl);
+
+                    exit;
+                }
+            }
+        } else {
+
+            if (is_user_logged_in()) {
+
+                wp_redirect($this->rurl);
+
+                exit;
+
+            } else {
+
+                $GLOBALS['contact_name'] = '';
+
+                $GLOBALS['username'] = '';
+
+                $GLOBALS['email'] = '';
+
+                $GLOBALS['company_name'] = '';
+
+                $GLOBALS['country'] = '';
+
+                $GLOBALS['find_us'] = '';
+
+            }
+        }
+    }
+
+    /**
+     * @Author: Mamun
+     */
+
+    public function quotationFound()
+    {
+
+        return $this->db->get_row("
+			SELECT id,user_id
+			FROM " . QUOTATION_TABLE . "
+			WHERE id = " . $_GET['id'] . "
+			AND quotation_date = " . $_GET['secret_key'] . "
+			LIMIT 1
+		");
+    }
+
+    public function freeTrialQuotatioAdd($data)
+    {
+        $user_data = array();
+        $user_data['client_name'] = sanitize_text_field($_POST['client_name']);
+        $account = $user_data['client_email'] = sanitize_email($_POST['client_email']);
+        $user_data['user_password'] = $_POST['password'];
+        $user_data['find_us'] = sanitize_text_field($_POST['findus']);
+        $user_data['terms'] = (isset($_POST['terms']) && !empty($_POST['terms'])) ? $_POST['terms'] : false;
+
+        if (empty($account)) {
+            $error = 'Enter an username or e-mail address.';
+        } else {
+            if (is_email($account)) {
+                if (email_exists($account)) {
+                    $get_by = 'email';
+                    $error = 'e-mail address is already used';
+                } else {
+                    $error = false;
+                }
+            } else if (validate_username($account)) {
+                if (username_exists($account))
+                    $error = 'email is already use by  another account';
+                else
+                    $error = false;
+            } else
+                $error = 'Invalid username or e-mail address.';
+        }
+
+
+        if ($error) {
+            $data = array("abc" => $data);
+            $data['message'] = $error;
+            $data['error'] = true;
+            $data['success'] = false;
+        } else {
+
+            if (class_exists('Users')) {
+
+                // Add currency
+
+                $users = new Users();
+                $sign_up_data = $users->user_signup($user_data);
+                if (is_int($sign_up_data)) {
+                    $this->user_id = $sign_up_data;
+                }
+                $this->processQuotationRequirements($data);
+                $data = array("inserted-data" => $sign_up_data);
+                $data['message'] = 'Your Quotation have been submited';
+                $data['error'] = false;
+                $data['success'] = true;
+            } else {
+                $data = array("abc" => $data);
+                $data['message'] = 'There is something going wrong try again or contact us.';
+                $data['error'] = true;
+                $data['success'] = false;
+            }
+
+        }
+
+        return $data;
+
+    }
+
+    /**
+     * @Author: Mamun
+     * prepare data for quotaion form
+     * check captcha error
+     * create new potential client
+     * create client quotaion
+     */
+
+   
+    public function processQuotationRequirements($data, $all = false)
+    {
+
+         $client_email = sanitize_text_field($data->email);
+		 
+
+         $pcinfo = $this->existPotentialClient($client_email);
+		
+
+        if (isset($pcinfo->id) && ($pcinfo->id != '')) {
+			
+		
+            $this->potential_client_id = $pcinfo->id;
+
+            $this->updatePotentialClientdata();
+
+        } else {
+				
+            $this->potential_client_id = $this->insertPotentialClient();
+        }
+		return true;
+        //return $this->insertQuotation($all);
+
+    }
+
+    /**
+     * @Author: mamun
+     * check already exist email address in the potential_client table
+     */
+
+    public function existPotentialClient($email)
+    {
+        global $wpdb;
+        $row = $wpdb->get_row("
+			SELECT *
+			FROM " . POTENTIAL_CLIENT_TABLE . "
+			WHERE client_email='" . $email . "' or  user_id = '" . $this->user_id . "'
+			LIMIT 1");
+        return $row;
+
+    }
+
+    /**
+     * @Author: Mamun
+     */
+
+    public function updatePotentialClientdata()
+    {
+		global $wpdb;
+        $data = array(
+            'client_name' => sanitize_text_field($_POST['uname']),
+            'client_email' => sanitize_text_field($_POST['email']),
+            'modify_date' => dateTime()
+        );
+
+       $this->db->update(POTENTIAL_CLIENT_TABLE, $data, array('id' => $this->potential_client_id));
+		
+	
+
+        return true;
+
+    }
+
+    /**
+     * @Author: Mamun
+     * save customer's information to potential client table
+     */
+
+    public function insertPotentialClient()
+    {
+
+        $data = array();
+
+        $data['user_id'] = $this->user_id;
+
+        $data['client_name'] = sanitize_text_field($_POST['client_name']);
+
+        $data['client_email'] = sanitize_text_field($_POST['client_email']);
+
+        $data['conversion_status'] = 0;
+
+        $data['create_date'] = date('Y-m-d H:i:s');
+
+        $data['modify_date'] = date('Y-m-d H:i:s');
+
+        $data['billing_name'] = sanitize_text_field($_POST['client_name']);
+
+        $geoip_country_name = getenv(GEOIP_COUNTRY_CODE);
+
+        $data['client_country'] = $geoip_country_name;
+
+        $this->db->insert(POTENTIAL_CLIENT_TABLE, $data);
+
+        return $this->db->insert_id;
+
+    }
+
+    /**
+     * @Author: Mamun
+     * save customer's quotation into quotation table and update vendor table for next quotaion number
+     */
+
+    public function insertQuotation()
+    {
+
+        $this->quotation_id = $this->getlastQuotation();
+
+
+        $newquotationNumber = 'CPI-Q-' . (substr(strrchr($this->quotation_id, "-"), 1) + 1);
+
+        $vendorData = array("next_quotation_no" => $newquotationNumber);
+
+
+        $data = array();
+
+        $data['vendor'] = 'CPI';
+
+        $data['potential_client_id'] = $this->potential_client_id;
+
+
+        $data['user_id'] = $this->user_id;
+
+
+        $data['billing_name'] = sanitize_text_field($_POST['client_name']);
+
+        $data['quotation_no'] = $this->quotation_id;
+
+        $data['quotation_date'] = strtotime(date('Y-m-d H:i:s'));
+
+        $data['create_date'] = date('Y-m-d H:i:s');
+
+        $data['modify_date'] = date('Y-m-d H:i:s');
+
+        $data['status'] = 'Pending';
+
+
+        $data['sizing'] = sanitize_text_field($_POST['sizing']);
+
+        $data['quantity'] = sanitize_text_field($_POST['quantity']);
+
+        $data['yearly_quantity'] = sanitize_text_field($_POST['yearlyImgEdit']);
+
+        $data['quotation_details'] = sanitize_text_field($_POST['quotation_details']);
+
+        $filepath = "";//$this->loadHelper('path');
+
+        $data['image_folder'] = $filepath . sanitize_text_field($_POST['quoteImgfolder']);
+
+        if(isset($_POST['sizing']) && ($_POST['sizing']=='r')){
+
+            if (isset($_POST['width']) && ($_POST['width'] != '')) {
+
+                $data['width'] = sanitize_text_field($_POST['width']);
+
+            }
+
+            if (isset($_POST['height']) && ($_POST['height'] != '')) {
+
+                $data['height'] = sanitize_text_field($_POST['height']);
+
+            }
+
+
+            if (isset($_POST['sizing_margin']) && ($_POST['sizing_margin'] != '')) {
+
+                $data['margin'] = sanitize_text_field($_POST['sizing_margin']);
+
+            }
+
+            if (isset($_POST['resizeMarginType']) && ($_POST['resizeMarginType'] != '')) {
+
+                $data['marginType'] = sanitize_text_field($_POST['resizeMarginType']);
+
+            }
+
+        }elseif(isset($_POST['sizing']) && ($_POST['sizing']=='o')){
+
+            if (isset($_POST['original_margin']) && ($_POST['original_margin'] != '')) {
+
+                $data['margin'] = sanitize_text_field($_POST['original_margin']);
+
+            }
+
+            if (isset($_POST['orginalMarginType']) && ($_POST['orginalMarginType'] != '')) {
+
+                $data['marginType'] = sanitize_text_field($_POST['orginalMarginType']);
+
+            }
+
+        }
+
+
+
+
+
+
+
+
+        $inserted_quotation = $this->db->insert(QUOTATION_TABLE, $data);
+
+        if (is_wp_error($inserted_quotation)) {
+            return $inserted_quotation->get_error_message();
+        } else {
+            $updated_vendor = $this->db->update(VENDOR_TABLE, $vendorData, array('vendor' => 'CPI'));
+
+            if (is_wp_error($updated_vendor)) {
+                return $updated_vendor->get_error_message();
+            } else {
+                return $updated_vendor;
+            }
+        }
+
+
+    }
+
+    /**
+     * @Author: Mamun
+     * retuen lastest quotation number
+     */
+
+    public function getlastQuotation()
+    {
+
+        $query = $this->db->get_row("
+			SELECT next_quotation_no
+			FROM " . VENDOR_TABLE . "
+		");
+        return $query->next_quotation_no;
+
+    }
+
+}
+
+?>

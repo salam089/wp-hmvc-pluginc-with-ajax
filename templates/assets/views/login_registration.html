@@ -1,0 +1,120 @@
+<!-- start: LOGIN -->
+<body class="login">
+
+<div class="row">
+    <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4 col-lg-2 col-lg-offset-5">
+
+
+        <div ng-controller="signUpValidationCtrl">
+
+            <div class="list-group">
+
+                <div class="list-group-item list-group-item-danger" href="#" ng-show="signUpError"> {{errorMsg }}</div>
+
+                <div class="list-group-item list-group-item-danger" href="#" ng-show="signUpSuccess"> {{successMsg }}
+                </div>
+
+            </div>
+
+            <form class="form-login" name="Form" id="form1" novalidate ng-submit="form.submit(Form)">
+                <h4 class="log-box-title">
+                    Create your account
+                </h4>
+
+                <div class="form-group"
+                     ng-class="{'has-error':Form.uname.$dirty &&  Form.uname.$dirty && Form.uname.$invalid, 'has-success':Form.uname.$valid}">
+                    <label> Your name </label>
+                    <span class="input-icon">
+                        <input type="text" placeholder="User name" class="form-control" required name="uname"
+                               ng-minlength="3" ng-maxlength="5" ng-model="myModel.uname" required
+                               style="color: #9c9ca0;">
+                        <i class="ti-user"></i>
+                    </span>
+                    <span class="error text-small block" ng-if="Form.uname.$dirty && Form.uname.$error.required">User name is required. </span>
+                    <span class="error text-small block" ng-if="Form.uname.$error.maxlength">Too long!</span>
+                    <span class="error text-small block" ng-if="Form.uname.$error.minlength">Too short!</span>
+                    <span class="success text-small" ng-if="Form.uname.$valid">Thank you.</span>
+
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error':Form.email.$dirty && Form.email.$invalid, 'has-success':Form.email.$valid}">
+                    <label> E-mail </label>
+                    <span class="input-icon">
+                        <input type="email" placeholder="example@domain.com" class="form-control" name="email"
+                               ng-model="myModel.email" required style="color: #9c9ca0;">
+                        <i class="ti-email"></i>
+                    </span>
+                    <span class="error text-small block" ng-if="Form.email.$dirty && Form.email.$error.required">Email is required.</span>
+                    <span class="error text-small block" ng-if="Form.email.$error.email">Please, enter a valid email address.</span>
+                    <span class="success text-small" ng-if="Form.email.$valid">It's a valid e-mail!</span>
+                </div>
+
+                <div id="password_portion" class="form-group"
+                     ng-class="{'has-error':Form.password.$dirty && Form.password.$invalid, 'has-success':Form.password.$valid}">
+                    <label> Password </label>
+                     <span class="input-icon">
+                        <input type="password" placeholder="Enter password" class="form-control" name="password"
+                               ng-model="myModel.password" required style="color: #9c9ca0;">
+                        <i class="ti-key "></i>
+                         </span>
+                    <span class="error text-small block" ng-if="Form.password.$dirty && Form.password.$error.required">Password is required.</span>
+                    <span class="success text-small block" ng-if="Form.password.$valid">Ok!</span>
+                </div>
+
+                <div id="password_portion" class="form-group"
+                     ng-class="{'has-error':Form.password.$dirty && Form.password.$invalid, 'has-success':Form.password.$valid}">
+                    <div class="form-group">
+                        <label> How did you find us? </label>
+                        <span class="clip-select">
+                            <select name="findus" class="form-control" ng-model="myModel.findus">
+                                <option value="">&nbsp;</option>
+                                <option value="AL">Alabama</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="checkbox clip-check check-primary">
+                    <input type="checkbox" name="terms" id="remember" value="1" ng-model="myModel.terms">
+                    <label for="remember"> I agree to the <a href="#">terms & conditions </a></label>
+                </div>
+
+                <div class="form-actions">
+
+                    <button type="submit" class="btn btn-dark-azure form_btn btn-block">
+
+                    <span><i id="btn_regi_i" class="ti-lock"></i>CREATE MY ACCOUNT</span>
+                    </button>
+                </div>
+
+                <div class="new-account text-center">
+                    Already have an account? <a ui-sref="login.signin"> Login</a>
+                </div>
+
+            </form>
+
+
+        </div>
+        <!-- end: Controller -->
+
+    </div>
+
+    <!-- end: LOGIN BOX -->
+
+</div>
+
+</div>
+
+
+<style type="text/css">
+    #btn_regi_i {
+        right: 58px;
+        top: 8px;
+    }
+</style>
+
+</body>
+
+
+<!-- end: LOGIN -->
+

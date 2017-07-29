@@ -1,0 +1,1017 @@
+<!-- start: LOGIN -->
+
+
+<div ng-controller="orderQuoteStepCtrl" id="orederq_wtht_temp" class="row">
+    <div class="col-md-12">
+        <div class="custom_panel_body custom_width">
+
+           
+        <div class="row">
+            <div class="col-md-12">
+                 <div class="list-group overflw_hidden nomargin">
+                <div class="list-group-item list-group-item-danger" href="#" ng-show="signUpError"> {{errorMsg }}</div>
+                <div class="list-group-item list-group-item-danger" href="#" ng-show="signUpSuccess"> {{successMsg }}
+                </div>
+            </div>
+            </div>
+        </div>
+
+            <div class="row">
+
+<!-- form starts here -->
+                <div class="col-md-12">
+                    <form class="form_qurote_guest" name="Form" id="form" novalidate ng-submit="form.submit(Form)">
+
+<!--  2nd modal oode start  -->
+                        <script type="text/ng-template" id="templatedtail.html" class="modal_box">
+                                <div class="row">
+                                        <div class="modal-header modal_custom_header">
+                                            <div class="col-md-12 modal_title">
+                                                    <!-- for large device -->
+                                                <div class="visible-lg visible-md">
+                                                <h4 class="pull-left colorGreen"> Template details</h4>
+                                                 <h6 class="pull-left sub_modal_head colorGreen"> {{templateDetails.template_name}}</h6>
+                                                <p>{{message}}</p>
+                                                </div>
+                                                    <!-- for small device -->
+                                                <div class="text-center visible-sm visible-xs margintop8">
+                                                    <h4 class="colorGreen"> Template details</h4>
+                                                 <h6 class="sub_modal_head colorGreen"> {{templateDetails.template_name}}</h6>
+                                                <p>{{message}}</p>
+                                                </div>
+                                                
+                                            </div>   
+                                             <!--<div class="col-md-5">
+                                                <button class="btn btn-wide btn-info btn-sm ladda-button pull-right witht_temp_btn" ng-click="getTemplateList()" data-style="expand-right" data-size="s">
+                                                    <span class="ladda-label">Select another template</span>
+                                                </button>
+                                            </div> --> 
+                                        </div>
+                                    </div>
+                                <div class="scndmodal_area" ng-init="getTemplateDetails(editId)">
+                                    <div class="temp_dtail_content">
+                        
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="thrdmodal_left fontBold">
+                                                    <p>Services :</p>
+                                                    </div>
+                                                    <div class="thrdmodal_right fontRegular">
+                                                    <p>{{templateDetails.services.join(", ")}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="visible-sm visible-xs hrstyle">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="thrdmodal_left fontBold">
+                                                    <p>Other instruction:</p>
+                                                    </div>
+                                                    <div class="thrdmodal_right fontRegular">
+                                                    <p>{{templateDetails.quotation_details}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="visible-sm visible-xs hrstyle">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="thrdmodal_left fontBold">
+                                                    <p>Output size :</p>
+                                                    </div>
+                                                    <div class="thrdmodal_right fontRegular">
+                                                    <p>{{templateDetails.sizingOption}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="visible-sm visible-xs hrstyle">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="thrdmodal_left fontBold">
+                                                     <p>Return file format:</p>
+                                                    </div>
+                                                    <div class="thrdmodal_right fontRegular">
+                                                    <p>{{templateDetails.formatName}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="visible-sm visible-xs hrstyle">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="thrdmodal_left fontBold">
+                                                     <p>Web compression :</p>
+                                                    </div>
+                                                    <div class="thrdmodal_right fontRegular">
+                                                    <p>{{templateDetails.compressionName}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="visible-sm visible-xs hrstyle">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="thrdmodal_left fontBold">
+                                                    <p>Last used : </p>
+                                                    </div>
+                                                    <div class="thrdmodal_right fontRegular">
+                                                    <p>{{templateDetails.last_used}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                </div>
+                        </script>
+<!-- 2nd modal code end -->
+
+
+
+<!--  3rd modal oode start  -->
+                        <script type="text/ng-template" id="selectTemplate.html" class="modal_box">
+
+                                    <div class="row">
+                                        <div class="modal-header modal_custom_header">
+                                            <div class="col-md-12 modal_title">
+                                                <div class="visible-lg visible-md">
+                                                <h4 class="pull-left">Create new order based on a template</h4>
+                                                <p>{{message}}</p>
+                                                </div>
+                                                <div class="visible-xs visible-sm">
+                                                    <h4 class="margintop8 text-center">Create new order based on a template</h4>
+                                                <p>{{message}}</p>
+                                                </div>
+                                                
+                                            </div>   
+                                             <!--<div class="col-md-5">
+                                                <button class="btn btn-wide btn-info btn-sm ladda-button pull-right witht_temp_btn" ng-click="getTemplateList()" data-style="expand-right" data-size="s">
+                                                    <span class="ladda-label">Select another template</span>
+                                                </button>
+                                            </div> --> 
+                                        </div>
+                                    </div>
+
+                            <div class="row">
+                                <div class="col-md-12 third_modal_area">
+                                    <!-- <input type="text" value="" ng-model="editId" /> -->
+                                        <div class="popupradio">
+                                            <span>Are the images for this order similar in type and complexity to the images in the original order</span>
+                                            <div class="third_modal_content">
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="radio clip-radio radio-primary radio-inline nomargin">
+                                                        <!--<input type="radio" id="baseprice" name="pricePrevCmplxity" value="o"-->
+                                                               <!--ng-model="myModel.pricePrevCmplxity" required="">-->
+                                                        <input id="radio1" name="pricePrevCmplxity" value="1" type="radio" required="" ng-model="tempComplex">
+                                                        <label for="radio1">Yes (we'll base price on previous complexity)</label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="radio clip-radio radio-primary nomargin">
+                                                        <input id="radio2" name="pricePrevCmplxity" value="0" type="radio" required="" ng-model="tempComplex">
+                                                        <label for="radio2">No (we'll review and provide price quote)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            </div>
+                                        </div>
+
+
+                                    <div class="row borderTop">
+                                        <div class="col-md-12">
+                                            <div class="modal-footer">
+                                                <a class="thrdmodal_cancel_link" ng-click="getTemplateList()">Cancel</a>
+                                                <button ladda="loading" data-style="zoom-out" class="btn btn-primary form_btn" ng-click="ok()">Continue</button>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </script>
+ <!-- 3rd modal code end -->
+
+
+
+<!-- modal code start -->
+<!-- coming modal code -->
+                     <script type="text/ng-template" class="modal_box" id="myModalContent.html">
+
+                            <div class="row">
+                                <div class="modal-header modal_custom_header">
+                                    <div class="col-md-6 modal_title">
+                                        <h4 class="modal-title">Select a template</h4>
+                                    </div>    
+                                    <div class="col-md-6 text-center">
+                                        <button class="btn btn-wide btn-info btn-sm ladda-button pull-right witht_temp_btn order_temp_btn" ng-click="goNewQuote();" data-style="expand-right" data-size="s">
+                                            <span class="ladda-label">ORDER WITHOUT TEMPLATE</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                      
+
+
+                            <div class="modal-body">
+                            <perfect-scrollbar wheel-propagation="true" style="height: 400px; overflow-y: hidden; position: relative;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+
+                                    <table class="table table-striped table-hover table-full-width dataTable no-footer modal_inner_table"
+                                           id="sample_1" role="grid" aria-describedby="sample_1_info">
+
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
+                                                    style="width: 295px;" aria-label="template name: activate to sort column ascending">
+                                                    Template name
+                                                </th>
+                                                <th class="hidden-xs sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1"
+                                                    colspan="1" style="width: 131px;" aria-sort="ascending"
+                                                    aria-label="last used: activate to sort column descending">Last used
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
+                                                    style="width: 98px;" aria-label="time used: activate to sort column ascending">
+                                                   Times used
+                                                </th>
+                                                <th class="hidden-xs sorting" tabindex="0" aria-controls="sample_1" rowspan="1"
+                                                    colspan="1"> 
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1">
+                                                    
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+
+                                        <!-- <tr role="row" class="{{oddevenclass}}" ng-repeat="item in items">
+                                            <td><a href="#" ng-click="tempdetail()">{{item}}</a></td>
+                                            <td class="hidden-xs sorting_1">30 May 2016</td>
+                                            <td>6</td>
+                                            <td>
+                                                <button type="button" class="btn btn-dark-azure cancel btn-sm pull-right modal_table_btn"  ng-click="selectedTemplate(item)">select </button>
+                                               
+                                            </td>
+                                            <td>settings</td>
+                                        </tr> -->
+
+                                        <tr role="row" class="{{oddevenclass}}" ng-repeat="item in items">
+                                            <td><a href="#" ng-click="getTemplateDetails(item.ID)" class="td_link">{{item.name}}</a></td>
+                                            <td class="hidden-xs sorting_1" style="width: 139px;">{{item.last_used}}</td>
+                                            <td>{{item.times_used}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-dark-azure cancel btn-sm pull-right modal_table_btn"  ng-click="selectedTemplate(item.ID)">select </button>
+                                               
+                                            </td>
+
+                                            <td class="center td_settings_btn_container">
+                                                <div class="btn-group dropdown" uib-dropdown="" style="">
+                                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle td_settings_btn" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu pull-right dropdown-light" role="menu" style="left:auto !important">
+                                                         <li ui-sref-active="active_nav"  style="float:none;">
+                                                                <a ng-click="renameTemplate(item.ID)" class="menu-toggler"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Rename </a>
+                                                        </li>
+                                                        <li ui-sref-active="active_nav" class="ng-scope" style="float:none;">
+                                                            <a ng-click="deleteTemplate(item.ID)" class="menu-toggler" style="color: #FF0000 !important"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Delete </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+
+
+                                        </tr>
+
+
+                                        <!-- <tr role="row" class="even">
+                                            <td><a href="#">Shows print 2016 milan</a></td>
+                                            <td class="hidden-xs sorting_1">30 May 2016</td>
+                                            <td>20</td>
+                                            <td>
+                                                <button type="button" class="btn btn-dark-azure cancel btn-sm pull-right modal_table_btn" ng-click="selectedTemplate(item)">select </button>
+                                            </td>
+                                            <td>settings</td>
+                                        </tr> -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                         </perfect-scrollbar>
+
+
+                            <div class="row">
+                                <div class="col-md-12 text-center modal_bottom_portion">
+                                    <p>Can't find a template? You can create templates based on previous orders in 2 easy steps!</p>
+                                    <a href="#" title="taek me to my order page">Take me to My orders page</a>
+                                </div>
+                            </div>
+                         </div>
+                        </script>
+
+
+<!-- coming modal code -->
+           <!--              <div class="row">
+                            <div class="col-md-4">
+                                 <button ladda="loading" data-style="zoom-out" class="btn btn-primary btn-o" ng-click="getUserTemplates()">
+                                    SELECT TEMPLATE
+                                </button>
+                            </div>
+                        </div> -->
+
+<!-- modal code end -->
+
+
+
+
+
+
+
+<!-- content hide for current step code starts -->
+
+                    <div ng-show="currentStep == 2" class="showdivstyle"> &nbsp; </div>
+
+                    <div ng-hide="currentStep == 2">
+<!-- top form porion starts-->
+                        <div class="row order_q_wtht_tmep_top">
+                            <div class="col-md-12">
+                                <div class="order_q_wtht_tmep_top_left">
+                                    <div class="alert alert-info custom_alert">
+                                        <strong>If your new requirements are similar to one of your previous orders, you can use a template based on that order. Alternatively use the form below to get a new quote</strong>
+
+                                            .
+                                    </div>
+                                </div>
+                                <div class="order_q_wtht_tmep_top_right">
+                                    <button ladda="loading" class="btn btn-primary btn-o btn_custom" ng-click="getUserTemplates()">
+                                        SELECT TEMPLATE
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+<!-- top message portion end -->
+
+
+<!-- form title starts -->
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h1 class="formTitle log-box-title">
+                                Get a quote
+                            </h1>
+                          </div>
+                        </div>
+<!-- form title ends -->
+                    </div>
+<!-- content hide for current step code ends -->
+
+
+                <div class="orderq_stepbar_area">
+                            <div class="row">
+                                <div class="col-md-12">
+                                <div id="wizard" class="swMain stepbar_area">
+                                    <ul class="orderq_step_ul">
+                                        <li ng-click="form.goTo(Form, 1)">
+                                            <a href ng-class="{'selected' : currentStep >= 1, 'done' : currentStep > 1}">
+                                                <div class="stepNumber">
+                                                    1
+                                                </div>
+                                                <span class="stepDesc text-small">Submit instruction</span>
+                                            </a>
+                                        </li>
+                                        <!-- <li >
+                                            <a href="">
+                                                <div class=""></div><span class="stepDesc text-small"></span>
+                                            </a>
+                                        </li> -->
+                                        <li ng-click="form.goTo(Form, 2)">
+                                            <a href ng-class="{'selected' : currentStep >= 2, 'done' : currentStep > 2}">
+                                                <div class="stepNumber">
+                                                    2
+                                                </div>
+                                                <span class="stepDesc text-small">Upload image</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+<!-- start: WIZARD STEP 1 -->
+    <div id="step-1" ng-show="currentStep == 1">
+                            <div class="row steps_content_container">
+                                <div class="col-md-12 need_edit_pic">
+                                    <div class="form-group order_quote_quantity custom_input_container"
+                                         ng-class="{'has-error':Form.howManyImgQ.$dirty && Form.howManyImgQ.$invalid, 'has-success':Form.howManyImgQ.$valid}">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="editpic1">
+                                                    <p>I need</p>
+                                                </div>
+                                                <div class="editpic2">
+                                                    <input name="howManyImgQ" 
+                                                       class="form-control ng-pristine ng-empty ng-valid-min ng-valid-max ng-invalid ng-invalid-required ng-touched freeq_quan_input"
+                                                       ng-model="sharedData.template.quantity" max="200" ng-required="currentStep == 1"
+                                                       style="" type="number">
+                                                </div>
+                                                <div class="editpic3">
+                                                    <p>picture(s) edited</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <span class="error text-small block"
+                                                      ng-if="Form.DoingWithIMG.$dirty && Form.DoingWithIMG.$error.required">this field is required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    </div>
+                            </div>
+                
+<!--Let us know detail-->
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group custom_input_container"
+                                  ng-class="{'has-error':Form.DoingWithIMG.$dirty, 'has-success':Form.DoingWithIMG.$valid}">
+                                  <label>Let us know what to do with your images</label>
+                                  <textarea name="DoingWithIMG" maxlength="200" id="form-field-23"
+                                  class="form-control limited ng-pristine ng-empty ng-touched ng-invalid ng-invalid-required quotation_details custom_textarea customer_q_txtarea"
+                                 ng-model="sharedData.template.quotation_details"
+                                  ng-required="currentStep == 1" required></textarea>
+                                  <span class="error text-small block"
+                                  ng-if="Form.DoingWithIMG.$dirty && Form.DoingWithIMG.$error.required">This field is required.</span>
+                                </div>
+                              </div>
+                            </div>
+<!--Output image size-->
+
+            
+<!-- output image size portion starts -->
+            <div class="row">
+              <div class="col-md-12 resize_option">
+                <label> Output image size</label>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p style="font-size: 13px">Resizing is free & we offer discount for choosing
+                          smaller
+                        image size, because they are quicker to process.</p>
+                    </div>
+                </div>
+                <div class="radio_content freeq_radio" style="margin-top:0px !important">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="check_radio_content resizeto_checkcontent">
+                        <div class="radio clip-radio radio-primary custom_radio"
+                          ng-class="{'has-error':Form.sizing.$dirty && Form.sizing.$invalid, 'has-success':Form.sizing.$valid}">
+                          <span class="error text-small block"
+                          ng-if="Form.sizing.$dirty && Form.sizing.$error.required">Choose a sizing option</span>
+                          <input type="radio"
+                          id="sizing"
+                          name="sizing"
+                          value="r"
+                          ng-model="sharedData.template.sizing"
+                          required
+                          ng-click="resizeTo()">
+                          <label for="sizing" ng-click="resetResizeOptions()">
+                            Resize to
+                          </label>
+                        </div>
+                        <div class="img_reaize_opt" ng-show="sharedData.template.sizing == 'r'">
+                          <div class="row">
+                            <div class="width_height_portion">
+                              <div class="col-md-3 width_content">
+                                <div class="form-group"
+                                  ng-class="{'has-error':Form.width.$dirty && Form.width.$invalid || Form.height.$dirty && Form.height.$invalid, 'has-success':Form.width.$valid}">
+                                  <label>width</label>
+                                  <div class="input-group">
+                                    <!--<input class="form-control" type="text"-->
+                                    <!--name="width" ng-model="qtModel.width"-->
+                                    <!--ng-required="qtModel.sizing">-->
+                                    <input class="form-control" type="number" name="width"
+                                    ng-model="sharedData.template.width"
+                                    min="1"
+                                    max="9999"
+                                    minlength="1"
+                                    maxlength="4"
+                                    maxlength
+                                    ng-required="sharedData.template.sizing == 'r' && !sharedData.template.height">
+                                    <span class="input-group-addon px_input">px</span>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="error text-small block clear"
+                                      ng-if=" (Form.width.$dirty && Form.width.$invalid)">
+                                      Enter your required size
+                                    </div>
+                                  </div>
+                                  
+                                </div>
+                              </div>
+                              <div class="col-md-9 height_content">
+                                <div class="form-group"
+                                  ng-class="{'has-error':Form.height.$dirty && Form.height.$invalid, 'has-success':Form.height.$valid}">
+                                  <label>height</label>
+                                  <div class="input-group">
+                                    <!--<input class="form-control" type="text"-->
+                                    <!--name="height" ng-model="qtModel.height"-->
+                                    <!--ng-required="qtModel.sizing">-->
+                                    <input class="form-control" type="number"
+                                    name="height"
+                                    min="1"
+                                    max="9999"
+                                    minlength="1"
+                                    maxlength="4"
+                                    maxlength
+                                    ng-model="sharedData.template.height"
+                                    ng-required=" sharedData.template.sizing == 'r' && !sharedData.template.width"/>
+                                    <span class="input-group-addon px_input">px</span>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="error text-small block clear"
+                                      ng-if=" (Form.height.$dirty && Form.height.$invalid) ">
+                                      Enter your required size
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 margin_container form-group"
+                              ng-class="{'has-error':Form.sizing_margin.$dirty, 'has-success':Form.sizing_margin.$valid}">
+                              <div class="checkbox clip-check check-primary check_box">
+                                <input id="sizing_margin" value="1"
+                                name="sizing_margin_opt" ng-model="sharedData.template.sizing_margin_opt"
+                                type="checkbox" ng-checked="sharedData.template.sizing_margin_opt == true" ng-change="setMargin()">
+                                <label for="sizing_margin" ng-click="resetResizeOptions()">
+                                  margin
+                                </label>
+                              </div>
+                              <input name="sizing_margin" ng-model="sharedData.template.sizing_margin"
+                              style="color: #9c9ca0;" type="number" min="1"
+                              max="99"
+                              ng-min="1" ng-max="99"
+                              min=""
+                              max="99"
+                              minlength="1"
+                              maxlength="2"
+                              ng-required="sharedData.template.sizing_margin_opt == '1'"
+                              ng-keyup="maxVal(Form.sizing_margin);"
+                              ng-disabled="!sharedData.template.sizing_margin_opt"
+                              />
+                              <select id="form-field-select-1"
+                                class="form-control margin_select"
+                                name="resizeMarginType" ng-disabled="!sharedData.template.sizing_margin_opt" ng-model="sharedData.template.sizing_margin_unit">
+                                <option slected value="px">px</option>
+                                <option value="%">%</option>
+                              </select>
+                              <div class="col-md-12">
+                                <div class="pullerror text-small block error clear"
+                                  ng-if="Form.sizing_margin.$dirty && Form.sizing_margin.$error.required">
+                                  This field is required.
+                                </div>
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="check_radio_content keep_origin_content">
+                        <div class="radio clip-radio radio-primary">
+                          <input type="radio" id="keep_original" name="sizing" value="o"
+                          ng-model="sharedData.template.sizing" required ng-click="keepOrginal()" ng-checked="sharedData.template.sizing == 'o'">
+                          <label for="keep_original">
+                            Keep original size
+                          </label>
+                        </div>
+                        <div class="img_reaize_opt row" ng-show="sharedData.template.sizing == 'o'">
+                          <div class="col-md-12 margin_container">
+                            <div class="form-group"
+                              ng-class="{'has-error':Form.original_margin.$dirty, 'has-success':Form.original_margin.$valid}">
+                              <div class="checkbox clip-check check-primary check_box">
+                                <input id="checkbox7" name="original_margin_chk" value="1"
+                                type="checkbox" ng-checked="sharedData.template.sizing_margin_opt2 == true" ng-model="sharedData.template.sizing_margin_opt2" ng-change="setMargin('o')">
+                                <label for="checkbox7">
+                                  margin
+                                </label>
+                              </div>
+                              <input type="number" class="form-control" name="original_margin"
+                              style="color: #9c9ca0;"
+                              min="1"
+                              max="99"
+                              minlength="1"
+                              maxlength="2"
+                              ng-required="sharedData.template.original_margin_chk == '1'" ng-model="sharedData.template.sizing_margin2" ng-disabled="!sharedData.template.sizing_margin_opt2">
+                              <select class="form-control margin_select"
+                                name="orginalMarginType" ng-disabled="!sharedData.template.sizing_margin_opt2" ng-model="sharedData.template.sizing_margin2_unit">
+                                <option slected value="px">px</option>
+                                <option value="%">%</option>
+                              </select>
+                              <div class="col-md-12">
+                                <span class="pullerror text-small block error clear"
+                                ng-if="Form.original_margin.$dirty && Form.original_margin.$error.required">This field is required.</span>
+                              </div>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+<!-- output image size portion ends -->
+
+
+
+                      <!-- drop down portion starts -->
+            <div class="row" style="margin-top: 2px">
+              <div class="col-md-6">
+                <div class="form-group custom_input_container"
+                  ng-class="{'has-error':Form.ReturnFileFormat.$dirty && Form.ReturnFileFormat.$invalid, 'has-success':Form.ReturnFileFormat.$valid}">
+                  <label for="return file format">Return file format</label>
+                  <span class="clip-select">
+                    <select name="ReturnFileFormat" class="form-control"
+                      ng-model="myModel.ReturnFileFormat" ng-required="currentStep == 1">
+                      <option> </option>
+                      <option id=val0>JPEG</option>
+                      <option id=val1>PNG</option>
+                      <option id=val2>PSD</option>
+                      <option id=val3>TIFF</option>
+                      <option id=val4>EPS</option>
+                      <option id=val5>AI (Illustrator)</option>
+                      <option id=val6>EPS (Illustrator)</option>
+                      <option id=val7>PDF</option>
+                      <!-- option id=val8>TIF, Transparent background multiple layer</option>
+                      <option id=val9>TIF, layer mask single layer</option>
+                      <option id=val10>TIF, white background single layer</option>
+                      <option id=val11>TIF, white background multiple layer</option>
+                      <option id=val12>PNG, transparent background</option>
+                      <option id=val13>PNG, white background</option>
+                      <option id=val14>AI</option>
+                      <option id=val15>EPS</option>
+                      <option id=val16>PDF</option>
+                      <option id=val17>Other (please specify in the instruction area below) -->
+                      </option>
+                    </select>
+                    <span class="error text-small block"
+                      ng-if="Form.ReturnFileFormat.$dirty && Form.ReturnFileFormat.$error.required">this field is required.
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group custom_input_container"
+                  ng-class="{'has-error':Form.WebCompression.$dirty  && Form.WebCompression.$invalid, 'has-success':Form.WebCompression.$valid}">
+                  <label for="web compression">Background & layer option</label>
+                  <span class="clip-select">
+                    <select name="WebCompression"
+                      class="form-control ng-pristine ng-empty ng-touched ng-invalid ng-invalid-required"
+                      ng-model="myModel.WebCompression"
+                      ng-required="currentStep == 1"
+                      ng-disabled="myModel.WebCompressionDisabled"
+                      ng-options="key as value for (key , value) in compressions"
+                      >
+                    </select>
+                    <span class="error text-small block"
+                    ng-if="Form.WebCompression.$dirty && Form.WebCompression.$error.required">this field is required.</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- drop down portion ends -->
+
+
+
+            <div class="row bottombtn_area">
+                <div class="form-group col-md-3 form-actions next_step_btn pull-right">
+                    <button class="btn btn-dark-azure btn-block form_btn user_setting_btn"
+                            ng-click="form.next(Form)">
+                        SUBMIT & UPLOAD <i class="fa fa-arrow-circle-right"></i>
+                    </button>
+                </div>
+            </div>
+    </div>
+<!-- end: WIZARD STEP 1 -->
+
+
+<!-- start: WIZARD STEP 2 -->
+                        <div id="step-2" ng-show="currentStep == 2">
+                            <div class="row-fluid steps_content_container">
+
+<!-- thank you message starts -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="alert alert-block alert-success fade in order_quote_green_area">
+                                        <h4 class="alert-heading margin-bottom-10">Thanks you!</h4>
+
+                                        <p class="margin-bottom-10">
+                                            We’ve sent a confirmation email to you. Just upload your images using any of the methods below and we’ll get back to you with a quote soon.
+                                            </p>
+
+                                        <p>To get the most accurate price, please upload all your images or a few with average complexity. You won’t have to upload them again when confirming the order.</p>
+                                    </div>                                    
+                                </div> 
+                            </div>
+<!-- thank you message ends -->
+
+
+
+                                <uib-tabset class="tabbable orderq_tabable_custom orderq-tabs">
+
+                                    <uib-tab class="tab_title" heading="Image uploader">
+                                        <div class="orederq_step2_content">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="well my-drop-zone drop_file_area center-block" nv-file-over="" uploader="uploaderImages">
+                                                        <center><p>Drop files here</p></center>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1 or_div center-block" style="text-align: center;width:57px;"><p>or</p></div>
+                                                <div class="col-md-9 nopadding">
+                                                          <span class="visible-lg visible-md btn btn-primary btn-o btn-file free_q_upld_btn">
+                                                          Select files
+                                                           <input type="file" name="files[]" multiple ng-disabled="disabled">
+                                                          </span>
+                                                  <span class="btn btn-primary btn-o btn-file center-block visible-sm visible-xs" style="width: 100px;margin-bottom: 20px">
+                                                    Select files
+                                                     <input type="file" name="files[]" multiple ng-disabled="disabled">
+                                                  </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group custom_input_container upld_progress_bar_are">
+                                                        <p>
+                                                            Queue length: {{ uploaderImages.queue.length }}
+                                                        </p>
+
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th width="50%">Name</th>
+                                                                    <!-- <th ng-show="uploaderImages.isHTML5">Size</th>
+                                                                    <th ng-show="uploaderImages.isHTML5">Progress</th> -->
+                                                                    <th>Size</th>
+                                                                    <th>Progress</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr ng-repeat="item in uploaderImages.queue">
+                                                                    <td><strong>{{ item.file.name
+                                                                        }}</strong><!-- Image preview -->
+                                                                        <!--auto height-->
+                                                                        <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+                                                                        <!--auto width-->
+                                                                        <div ng-show="uploaderImages.isHTML5"
+                                                                             ng-thumb="{ file: item._file, height: 100 }"></div>
+                                                                        <!--fixed width and height -->
+                                                                        <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+                                                                    </td>
+                                                                    <td ng-show="uploaderImages.isHTML5" nowrap>{{
+                                                                        item.file.size/1024/1024|number:2 }} MB
+                                                                    </td>
+                                                                    <td ng-show="uploaderImages.isHTML5">
+                                                                        <div class="progress progress-xs margin-bottom-0">
+                                                                            <div class="progress-bar" role="progressbar"
+                                                                                 ng-style="{ 'width': item.progress + '%' }"></div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center"><span
+                                                                            ng-show="item.isSuccess"><i
+                                                                            class="glyphicon glyphicon-ok"></i></span><span
+                                                                            ng-show="item.isCancel"><i
+                                                                            class="glyphicon glyphicon-ban-circle"></i></span><span
+                                                                            ng-show="item.isError"><i
+                                                                            class="glyphicon glyphicon-remove"></i></span>
+                                                                    </td>
+                                                                    <td nowrap>
+                                                                        <button type="button"
+                                                                                class="btn btn-primary btn-xs"
+                                                                                ng-click="item.upload()"
+                                                                                ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                                                            <span class="glyphicon glyphicon-upload"></span>
+                                                                            Upload
+                                                                        </button>
+                                                                        <button type="button"
+                                                                                class="btn btn-warning btn-xs"
+                                                                                ng-click="item.cancel()"
+                                                                                ng-disabled="!item.isUploading">
+                                                                            <span class="glyphicon glyphicon-ban-circle"></span>
+                                                                            Cancel
+                                                                        </button>
+                                                                        <button type="button"
+                                                                                class="btn btn-danger btn-xs"
+                                                                                ng-click="item.remove()">
+                                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                                            Remove
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                    <p> Queue progress:</p>
+
+                                                                    <div class="progress progress-xs margin-top-5 margin-bottom-20 custom_progress_bar">
+                                                                        <div class="progress-bar" role="progressbar"
+                                                                             ng-style="{ 'width': uploaderImages.progress + '%' }"></div>
+                                                                    </div>
+                                                                
+                                                                <button type="button" class="btn btn-primary btn-s"
+                                                                        ng-click="uploaderImages.uploadAll()"
+                                                                        ng-disabled="!uploaderImages.getNotUploadedItems().length">
+                                                                    <span class="glyphicon glyphicon-upload"></span> Upload
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- me portion  -->
+                                    </uib-tab>
+
+
+                                   <!--  <uib-tab heading="Dropbox">
+                                        <div class="row">
+                                            <div class="col-md-12 nopadding">
+                                                <div class="tab_form_container">
+
+                                                    <div class="upload1">
+                                                        <div class="col-md-3 upload_icon">
+                                                            <img class="responsive"
+                                                                 src="wp-content/plugins/oel-cmp/templates/assets/images/my_acc_dropbox.png"
+                                                                 alt="test" title="test"/>
+                                                        </div>
+                                                        <div class="col-md-9 upload_content_right">
+                                                            <h4 class="upload1_content_title">Dropbox sync</h4>
+
+                                                            <p class="upld_dnld_content">FTP (File Transfer Protocol)
+                                                                You may want to use FTP when you need to transfer large
+                                                                files on a regular basis. Use any FTP client such as
+                                                                FileZilla, Transmit, Cyberduck, FireFTP and WinSCP. <a
+                                                                        href="">Learn more</a>.</p>
+
+                                                            <div class="checkbox">
+                                                                <span class="upld_dnld_icon_subtitle">Enable Dropbox</span>
+                                                                <span class="green switch green ng-not-empty ng-valid"
+                                                                      ng-click="undefined ? switchsetting : switchsetting=!switchsetting"
+                                                                      ng-class="{ checked:switchsetting, disabled:undefined }"
+                                                                      ng-model="myModel.switchsetting"
+                                                                      ng-init="switchsetting = true" style="">
+                                                                                        <small></small>
+                                                                                        <input ng-model="myModel.switchsetting"
+                                                                                               style="display: none;"
+                                                                                               class="ng-pristine ng-untouched ng-valid ng-empty"
+                                                                                               type="checkbox"><span
+                                                                        class="switch-text"> </span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </uib-tab> -->
+
+
+                                    <uib-tab heading="FTP">
+                                        <div class="row">
+                                            <div class="col-md-12 nopadding">
+                                                <div class="tab_form_container">
+                                                        <div class="upload2">
+                                                            <div class="col-md-3 upload_icon2">
+                                                                <img class="responsive"
+                                                                     src="wp-content/plugins/oel-cmp/templates/assets/images/ftp.png"
+                                                                     alt="test" title="test"/>
+                                                            </div>
+                                                            <div class="col-md-9 upload_content_right">
+                                                                <h4 class="upload1_content_title">FTP (File Transfer
+                                                                    Protocol)</h4>
+
+                                                                <p class="upld_dnld_content">We’ve made file
+                                                                    transmission
+                                                                    really easy with dropbox integration. You can
+                                                                    instantly
+                                                                    enable dropbox on your account by providing your
+                                                                    dropbox
+                                                                    email address. <a href="">Learn more</a>.</p>
+
+                                                                <div class="checkbox custom_checkbox_2">
+                                                                    <span class="upld_dnld_icon_subtitle">Enable FTP</span>
+                                                                    <span class="green switch white ng-not-empty ng-valid up_dnld_chckbox2"
+                                                                          ng-click="undefined ? switchsetting : switchsetting=!switchsetting"
+                                                                          ng-class="{ checked:switchsetting, disabled:undefined }"
+                                                                          ng-model="myModel.switchsetting"
+                                                                          ng-init="switchsetting = true" style=""><small></small><input
+                                                                            ng-model="myModel.switchsetting"
+                                                                            style="display: none;"
+                                                                            class="ng-pristine ng-untouched ng-valid ng-empty"
+                                                                            type="checkbox"><span
+                                                                            class="switch-text"> </span></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </uib-tab>
+
+
+                                </uib-tabset>
+                                <!-- </div> -->
+
+
+                                <!-- step 3 html part end -->
+
+
+                            </div>
+
+
+                             <div class="row">
+                                    <div class="col-md-12">
+
+                                        <h5 class="orderqbottomtext text-center">When all your images have been uploaded, you
+                                                can
+                                                safely close this browser window or navigate to another page.</h5>
+                                      <div class="panel-body orderq_bottom_menu">
+
+                                        <h4>What do you want to do next?</h4>
+                                          <ul class="what_do_nex">
+                                              <li><a href="#"> Take me to:</a></li>
+                                              <li class="not_icon">
+                                                  <ul>
+                                                      <li>
+                                                          <a href="#"> My orders</a>
+                                                      </li>
+                                                      <li>
+                                                          <a href="#"> Billing</a>
+                                                      </li>
+                                                      <li>
+                                                          <a href="#"> Settings</a>
+                                                      </li>
+                                                      <li>
+                                                          <a href="#"> Home</a>
+                                                      </li>
+                                                  </ul>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <!-- <div class="form-group col-md-3 form-actions next_step_btn pull-right">
+                                    <button class="btn btn-dark-azure btn-block form_btn user_setting_btn" ng-click="form.prev(Form)">
+                                        <i class="fa fa-circle-arrow-left"></i> Back
+                                    </button>
+                                    <button class="btn btn-dark-azure btn-block form_btn user_setting_btn" ng-click="form.next(Form)">
+                                        Next <i class="fa fa-arrow-circle-right"></i>
+                                    </button>
+                                </div> -->
+
+                            </div>
+                        </div>
+<!-- end: WIZARD STEP 2 -->
+
+
+                    </div>
+                </form>
+                </div>
+                <!-- end: WIZARD FORM -->
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- end: LOGIN -->
+

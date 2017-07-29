@@ -1,0 +1,92 @@
+<!-- start: FORGOT -->
+
+<div ui-view="" id="app"
+     ng-class="{'app-mobile' : app.isMobile, 'app-navbar-fixed' : app.layout.isNavbarFixed, 'app-sidebar-fixed' : app.layout.isSidebarFixed, 'app-sidebar-closed':app.layout.isSidebarClosed, 'app-footer-fixed':app.layout.isFooterFixed}"
+     class="ng-scope app-navbar-fixed app-sidebar-fixed" style=""><!-- start: LOGIN -->
+
+    <div class="row ng-scope" ng-controller="forGotCtrl">
+
+        <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4 col-lg-2 col-lg-offset-5">
+            <div class="list-group">
+                <a class="list-group-item list-group-item-danger ng-binding ng-hide" href="#" ng-show="loginError"> </a>
+                <a class="list-group-item list-group-item-danger ng-binding ng-hide" href="#"
+                   ng-show="loginSuccess"> </a>
+            </div>
+
+
+            <form class="form-login ng-pristine ng-valid-email ng-invalid ng-invalid-required" method="post" name="Form"
+                  id="form1" novalidate="" ng-submit="form.submit(Form)">
+                <h4 class="log-box-title">
+                    Reset password
+                </h4>
+
+                <div class="list-group">
+
+                    <div class="list-group-item list-group-item-danger" href="#" ng-show="forgetCaptchaError">
+                        {{errorMsgCaptcha }}
+                    </div>
+
+                    <div class="list-group-item list-group-item-danger" href="#" ng-show="forgetCaptchaSuccess">
+                        {{successMsgCaptcha }}
+                    </div>
+
+                </div>
+
+                    <span class="resetpass_subheading">
+                        Please enter your email address and we’ll send a link for you to create a new password.
+                    </span>
+
+
+                <div class="form-group"
+                     ng-class="{'has-error':Form.email.$dirty &amp;&amp; Form.email.$invalid, 'has-success':Form.email.$valid}">
+                    <label> E-mail </label>
+                    <span class="input-icon">
+                        <input placeholder="example@domain.com"
+                               class="form-control ng-pristine ng-untouched ng-empty ng-valid-email ng-invalid ng-invalid-required"
+                               name="email" ng-model="myModel.email" required="" style="color: #9c9ca0;" type="email">
+                        <i class="ti-email"></i>
+                    </span>
+                    <span class="error text-small block" ng-if="Form.email.$dirty && Form.email.$error.required">Email is required.</span>
+                    <span class="error text-small block" ng-if="Form.email.$error.email">Please, enter a valid email address.</span>
+                    <span class="success text-small" ng-if="Form.email.$valid">It's a valid e-mail!</span>
+                </div>
+
+
+                <div id="captcha_area" class="form-group" ng-class="">
+                    <div class="digits_container">
+                        <captcha field1="{{field1}}" operator="{{operator}}" field2="{{field2}}"></captcha>
+                    </div>
+                    <!-- <input type="text" id="answer" /> -->
+                    <input class="form-control captchainput captcha-input" name="captchaResult" ng-model="captchaResult"
+                           size="1" required/>
+
+                    <div class="captcha_refresh_icon"><a href="#"><img ng-click="captchaRefresh()"
+                                                                       src="/wp-content/plugins/oel-cmp/templates/assets/images/captcha_refresh.png"></a>
+                    </div>
+                    <!-- <input type="submit" value="Add Numbers" onclick="addNums();" /> -->
+                    <div id="status" style="color: green"></div>
+                </div>
+
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-dark-azure btn-block form_btn">
+                        <span>RESET PASSWORD</span>
+                    </button>
+                </div>
+                <div class="res_pass_foot"><a ui-sref="login.signin">Login</a> | <a ui-sref="login.registration">Register</a>
+                </div>
+                <div class="res_pass_foot"><a ui-sref="login.settings">settings</a> |<a ui-sref="login.verifypass">verify</a>
+                    | <a ui-sref="login.changepass">change pass</a>|
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JS CODE FOR CAPTCHA END -->
+<!-- end: FORGOT -->

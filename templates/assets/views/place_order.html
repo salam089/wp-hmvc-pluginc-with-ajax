@@ -1,0 +1,783 @@
+<div class="panel" ng-controller="TabsDemoCtrl">
+    <div class="panel-body custom_panel_body custom_width">
+        <!--<div class="list-group">-->
+        <!--<div class="list-group-item list-group-item-danger" href="#" ng-show="signUpError"> {{errorMsg }}</div>-->
+        <!--<div class="list-group-item list-group-item-danger" href="#" ng-show="signUpSuccess"> {{successMsg }}-->
+        <!--</div>-->
+        <!--</div>-->
+        <div ng-controller="PlaceorderCtrl">
+            <form class="form_qurote_guest" name="Form" id="form" novalidate>
+                <div id="wizard" class="swMain">
+                    <h5 id="content_area_heading">
+                        Place an order
+                    </h5>
+                    <!-- <td><a href="#" ng-click="tempdetail()">{{item}}</a></td> -->
+                    <!--  3rd modal oode start  -->
+                    <script type="text/ng-template" id="templatedtail.html" class="modal_box">
+                        <div class="scndmodal_area">
+                            <div class="modal-header">
+                                <div class="row">
+                                    <div class="col-md-6 modal_title">
+                                        <h4> Template details </h4>
+                                        <h6>Shoe - white background with drop shadow</h6>
+
+                                        <p>{{message}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row temp_dtail_content">
+                                <div class="thrdmodal_left">
+                                    <p>Services :</p>
+
+                                    <p>Other instruction:</p>
+
+                                    <p>Output size :</p>
+
+                                    <p>Return file format:</p>
+
+                                    <p>Web compression :</p>
+
+                                    <p>Last used : </p>
+                                </div>
+                                <div class="thrdmodal_right">
+                                    <p>Clipping path, Manipulation </p>
+
+                                    <p>This is a test message. This is a test message. This is a test message.</p>
+
+                                    <p>Resize to: 1000px X 1000px</p>
+
+                                    <p>JPG</p>
+
+                                    <p>Maximum (100%)</p>
+
+                                    <p>30 May 2016 at 4.15 p.m. (UTC) </p>
+                                </div>
+                            </div>
+                        </div>
+                    </script>
+                    <!-- 3rd modal code end -->
+                    <!--step wizard start-->
+                    <div id="wizard" class="swMain orderq_stepbar_area">
+                        <ul class="orderq_step_ul">
+                            <li ng-click="form.goTo(Form, 1)">
+                                <a href ng-class="{'selected' : currentStep >= 1, 'done' : currentStep > 1}">
+                                    <div class="stepNumber">
+                                        1
+                                    </div>
+                                    <span class="stepDesc text-small">Quotation</span>
+                                </a>
+                            </li>
+
+                            <li ng-click="form.goTo(Form, 2)">
+                                <a href ng-class="{'selected' : currentStep >= 2, 'done' : currentStep > 2}">
+                                    <div class="stepNumber">
+                                        2
+                                    </div>
+                                    <span class="stepDesc text-small">Accept & pay</span>
+                                </a>
+                            </li>
+                            <li ng-click="form.goTo(Form, 3)">
+                                <a href ng-class="{'selected' : currentStep >= 3, 'done' : currentStep > 3}">
+                                    <div class="stepNumber">
+                                        3
+                                    </div>
+                                    <span class="stepDesc text-small">Order details</span>
+                                </a>
+                            </li>
+                            <li ng-click="form.goTo(Form, 4)">
+                                <a href ng-class="{'selected' : currentStep >= 4, 'done' : currentStep > 4}">
+                                    <div class="stepNumber">
+                                        4
+                                    </div>
+                                    <span class="stepDesc text-small">Upload image</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--step wizard end-->
+                    <!--step 1 start-->
+                    <div id="step-1" ng-show="currentStep == 1" ng-controller="SliderCtrl">
+                        <div class="row">
+                            <div class="col-md-12">
+                               <!-- {{multipliers}}-->
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 need_edit_pic">
+                                <div class="form-group order_quote_quantity"
+                                     ng-class="{'has-error':Form.howManyImgQ.$dirty && Form.howManyImgQ.$invalid, 'has-success':Form.howManyImgQ.$valid}">
+                                    <p>I need</p>
+                                    <input name="howManyImgQ" placeholder="Quantity"
+                                           class="form-control ng-pristine ng-empty ng-valid-min ng-valid-max ng-invalid ng-invalid-required ng-touched freeq_quan_input"
+                                           ng-model="myModel.howManyImgQ" ng-value="myModel.howManyImgQ" min="1"
+                                           max="9999" ng-required="currentStep == 1"
+                                           style="" type="number" ng-change='sliderOPt()'>
+
+                                    <p>picture(s) edited</p>
+
+                                    <div class="col-md-12">
+                                            <span class="error text-small block"
+                                                  ng-if="Form.DoingWithIMG.$dirty && Form.DoingWithIMG.$error.required">this field is required.</span>
+                                        <!-- <span class="error text-small block" ng-if="Form.howManyImgQ.$error.max">Number must not be higher than 10!</span>
+                                        <span class="error text-small block" ng-if="Form.howManyImgQ.$error.number">Not valid number!</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Turnaround time</label>
+                                <!-- slider portion start -->
+                                <div class="">
+
+                                    <div style="display:none;">
+                                        <input type="number" name="totalScale" ng-model="myModel.totalScale"
+                                               placeholder="totalScale" value="100" ng-change='sliderOPt()'/>
+                                        <input type="number" name="scaleBy" ng-model="myModel.scaleBy" placeholder="scaleBy"
+                                               value="4" ng-change='sliderOPt()'/>
+                                        <input type="number" name="stepTo" ng-model="myModel.stepTo" placeholder="stepTo"
+                                               value="20" ng-change='sliderOPt()'/>
+                                        <input type="number" name="multiplier" ng-model="myModel.multiplier"
+                                               placeholder="multiplier" value="3" ng-change='sliderOPt()'/>
+                                    </div>
+
+
+
+                                    <div class="panel-heading">
+                                        <div class="panel-title">
+                                            Single value
+                                        </div>
+                                    </div>
+                                    <div class="panel-body" data-ng-init="sliderOPt()">
+                                        <!-- <p class="margin-bottom-30">
+                                            Current value is: {{value}}{{options.dimension}}
+                                        </p> -->
+                                        <!--  <img src="wp-content/plugins/oel-cmp/templates/assets/images/rangeimg.png" alt="" class="rangeimg"> -->
+                                        <input ng-model="value" type="range" id="mySlider1" slider options="options"
+                                               value="value" min="1" max="7" ng step="step" />
+                                        <!-- <input  type="range" name="price-max" id="price-max" value="5" min="1" max="7" step="1"> -->
+
+                                        <div class="hourbar" >
+                                            <span ng-repeat="m in multipliers"  id="range-{{m.id}}" ng-class="{'first-step-{{m.id}}': $index == '1', 'first-step-0': $index == '0'
+                                            }"  class="lebel" style="width:{{myModel.stepTo}}%" >&nbsp;</span>
+
+                                        </div>
+                                        <!--{{value}}-->
+                                        <input type="number" name="turnAroundMultiplier" ng-model="myModel.turnAroundMultiplier"
+                                               placeholder="multiplier" value="" ng-bind="value"  ng-value="{{value}}" />
+
+                                    </div>
+                                </div>
+                                <!-- slider portion start -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel panel-white placeorder_table_area">
+                                    <div class="panel-body">
+                                        <table class="table table-hover" id="sample-table-1">
+                                            <thead >
+                                            <tr>
+                                                <th>Item</th>
+                                                <th>Unit price</th>
+                                                <th>Quantity</th>
+                                                <th>Total</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody ng-init="total = 0">
+                                                <tr ng-repeat="q in quotation.services">
+                                                    <td>{{q.service}}</td>
+                                                    <td>{{quotation.courrency_symbole}}{{q.price*myModel.turnAroundMultiplier}}</td>
+                                                    <td>{{selctedQuantity}}</td>
+                                                    <td ng-init="$parent.total = $parent.total + (q.price*selctedQuantity*myModel.turnAroundMultiplier)">{{quotation.courrency_symbole}}{{q.price*selctedQuantity*myModel.turnAroundMultiplier}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                           <!-- <tfoot>
+                                            <tr>
+                                                <td style="text-align:right;" colspan="4">Sub-total :{{quotation.courrency_symbole}}{{calcTotal()}}</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align:right;" colspan="4">Discount :{{quotation.courrency_symbole}}{{quotation.discount}}</td>
+
+                                            </tr>
+                                            </tfoot>-->
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 pull-right sub_total_area">
+                                <p>Sub-total: {{quotation.courrency_symbole}}{{calcTotal()}}</p>
+
+                                <p>Discount: {{quotation.courrency_symbole}}{{quotation.discountActual}}</p>
+
+                                <p>VAT ({{quotation.vat}}{{quotation.vat_type}}): {{quotation.courrency_symbole}}{{quotation.vatActual}}</p>
+
+                                <p class="total_of_subtotal">Total:{{quotation.courrency_symbole}} {{calcTotal()-(quotation.vatActual+quotation.discountActual)}}</p>
+                               
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="form-group col-md-3 form-actions next_step_btn pull-right orderq_btn">
+                                    <button class="btn btn-wide btn-success btn-squared accpt_q_btn"
+                                            ng-click="form.next(Form)">
+                                        Accept Quotation <i class="fa fa-arrow-circle-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row order_summery">
+                            <div class="col-md-12">
+                                <div class="col-md-7">
+                                    <label>Order summmery</label>
+
+                                    <div class="alert alert-info">
+                                        {{quotation}}
+                                        <ul>
+                                            <li><span><strong>Services:</strong>Clipping path, Manipulation </span></li>
+                                            <li><span><strong>Output size:</strong> Resize to: 1000px X 1000px</span>
+                                            </li>
+                                            <li><span><strong>Quantity:</strong>  10</span></li>
+                                            <li><span><strong>Turnaround:</strong>24 hours</span></li>
+                                            <li><span><strong>Other instruction:</strong>This is a test message</span>
+                                            </li>
+                                            <li><span><strong>Return file format: </strong>JPG</span></li>
+                                            <li><span><strong>Web compression:</strong>Maximum (100%)</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="addcomment_pane">
+                                    <a href="#" class="btn btn-transparent btn-xs" data-toggle="tooltip"
+                                       data-placement="top" title="" data-original-title="Edit">
+                                        <i class="fa fa-pencil"></i>
+                                        <span>Add comment</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--step 1 end-->
+                    <!--step 2 start-->
+                    <div id="step-2" ng-show="currentStep == 2">
+                        <div class="row steps_content_container">
+                            <div class="row">
+                                <div class="payment_area">
+                                    <fieldset>
+                                        <legend>Biling address</legend>
+                                        <div class="form-actions add_bill_adr_btn">
+                                            <button type="submit" class="btn btn-wide btn-green btn-sm ladda-button">
+                                                <span><i class="ti-plus"></i>Add billing address</span>
+                                            </button>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="payment_area">
+                                    <h5 class="payment_area_title">Payment options</h5>
+                                    <uib-tabset class="tabbable orderq_tabable_custom orderq-tabs">
+                                        <uib-tab class="tab_title" heading="My wallet balance. balance $0.00">
+                                            <div class="row">
+                                                <div class="col-md-12 payment_tab1">
+                                                    <center>
+                                                        <h5>By using wallet, you don’t have to use your credit card
+                                                            every time you place an order – simply use credits from your
+                                                            wallet. </h5>
+                                                    </center>
+                                                    <div class="row top_up_wallet_portion">
+
+                                                        <div class="col-md-12">
+                                                            <label>Top up wallet and pay</label>
+
+                                                            <div class="form-group order_quote_quantity"
+                                                                 ng-class="{'has-error':Form.howManyImgQ.$dirty && Form.howManyImgQ.$invalid, 'has-success':Form.howManyImgQ.$valid}">
+                                                                <p>Select top up amount</p>
+                                                                <input name="howManyImgQ" placeholder="Quantity"
+                                                                       class="form-control ng-pristine ng-empty ng-valid-min ng-valid-max ng-invalid ng-invalid-required ng-touched freeq_quan_input"
+                                                                       ng-model="myModel.howManyImgQ" max="200"
+                                                                       ng-required="currentStep == 2"
+                                                                       style="" type="number">
+
+                                                                <div class="col-md-12">
+                                                                        <span class="error text-small block"
+                                                                              ng-if="Form.DoingWithIMG.$dirty && Form.DoingWithIMG.$error.required">this field is required.</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 ">
+                                                            <div class="form-actions secure_pay_btn pull-right">
+                                                                <button type="submit"
+                                                                        class="btn btn-dark-azure form_btn btn-block">
+                                                                    <span> CONTINUE TO PAY $100</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <p class="pull-right">You can pay with paypal or
+                                                                credit/debid card</p>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </uib-tab>
+                                        <uib-tab heading="Credit/Debit card. $1.50 handling fee">
+                                            <div class="row">
+                                                <div class="col-md-12 payment_tab2">
+                                                    <div class="payment_content">
+
+                                                        <label> Payment type </label>
+
+                                                        <div class="form-group">
+                                                            <div class="btn-group">
+                                                                <label class="btn btn-primary btn-sm"
+                                                                       ng-model="myModel.paymentMethod"
+                                                                       uib-btn-radio="'creditcard'"> <i
+                                                                        class="fa fa-cc-visa"></i> <i
+                                                                        class="fa fa-cc-mastercard"></i> Credit Card
+                                                                </label>
+                                                                <label class="btn btn-primary btn-sm"
+                                                                       ng-model="myModel.paymentMethod"
+                                                                       uib-btn-radio="'paypal'"> <i
+                                                                        class="fa fa-cc-paypal"></i> PayPal </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label> Card Number </label>
+                                                            <input type="text" class="form-control card_no_inpt"
+                                                                   name="cardNumber" ng-model="myModel.cardNumber"
+                                                                   placeholder="Enter Your Card Number">
+                                                        </div>
+                                                        <label> Expires </label>
+
+                                                        <div class="row">
+                                                            <div class="col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <select class="cs-select cs-skin-slide"
+                                                                            ng-model="myModel.expiresMonth">
+                                                                        <option value="" disabled>Month</option>
+                                                                        <option value="January">January</option>
+                                                                        <option value="February">February</option>
+                                                                        <option value="March">March</option>
+                                                                        <option value="April">April</option>
+                                                                        <option value="May">May</option>
+                                                                        <option value="June">June</option>
+                                                                        <option value="July">July</option>
+                                                                        <option value="August">August</option>
+                                                                        <option value="September">September</option>
+                                                                        <option value="October">October</option>
+                                                                        <option value="November">November</option>
+                                                                        <option value="December">December</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <select class="cs-select cs-skin-slide"
+                                                                            ng-model="myModel.expiresYear">
+                                                                        <option value="" disabled>Year</option>
+                                                                        <option value="2015">2015</option>
+                                                                        <option value="2016">2016</option>
+                                                                        <option value="2017">2017</option>
+                                                                        <option value="2018">2018</option>
+                                                                        <option value="2019">2019</option>
+                                                                        <option value="2020">2020</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <label> Security code </label>
+
+                                                                <div class="row">
+                                                                    <div class="col-xs-3">
+                                                                        <div class="form-group">
+                                                                            <input type="text"
+                                                                                   class="form-control sec_code_inpt"
+                                                                                   name="securityCode"
+                                                                                   placeholder="Security code"
+                                                                                   ng-model="myModel.securityCode">
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="help-inline col-xs-4"> <a href
+                                                                                                           uib-popover="The security code is a three-digit number on the back of your credit card, immediately following your main card number."
+                                                                                                           popover-placement="top"
+                                                                                                           popover-title="How to find the security code"><i
+                                                                            class="ti-help-alt text-large text-primary"></i></a> </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="form-actions secure_pay_btn">
+                                                        <span class="help-inline col-xs-4"> <a href uib-popover="The security code is a three-digit number on the back of your credit card, immediately following your main card number." popover-placement="top" popover-title="How to find the security code"><i class="ti-help-alt text-large text-primary"></i></a> </span>
+                                                        <button type="submit" class="btn btn-dark-azure form_btn btn-block">
+                                                        <span><i id="btn_regi_i" class="ti-lock"></i></span>
+                                                        </button>
+                                                    </div> -->
+                                                    <div class="row">
+                                                        <div class="form-group col-md-3 form-actions next_step_btn pull-right orderq_btn pull-right">
+                                                            <button class="btn btn-dark-azure btn-block form_btn user_setting_btn"
+                                                                    ng-click="form.next(Form)">
+                                                                Pay $100
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-xs-4 pull-right">
+                                                            <div class="checkbox clip-check check-primary check_box">
+                                                                <input id="resize_to_margin" value="1"
+                                                                       name="resize_to_margin" type="checkbox">
+                                                                <label for="resize_to_margin">
+                                                                    save card
+                                                                </label>
+
+                                                            </div>
+                                                            <span class="help-inline col-xs-4"> <a href
+                                                                                                   uib-popover="The security code is a three-digit number on the back of your credit card, immediately following your main card number."
+                                                                                                   popover-placement="top"
+                                                                                                   popover-title="How to find the security code"><i
+                                                                    class="ti-help-alt text-large text-primary"></i></a> </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </uib-tab>
+                                        <uib-tab heading="Paypal $1.50 handling fee">
+                                            <div class="row">
+                                                <div class="col-md-12 payment_tab3">
+                                                    <div class="step3_paypal_btn">
+                                                        <a href="#">
+                                                            <img src="wp-content/plugins/oel-cmp/templates/assets/images/paypalbtn.png"
+                                                                 alt="">
+                                                        </a>
+                                                    </div>
+                                                    <span class="txt_under_ppbtn">You will be redirected to PayPal website for payment</span>
+                                                </div>
+                                            </div>
+                                        </uib-tab>
+                                    </uib-tabset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--step 2 start-->
+                    <!--step 3 start-->
+                    <div id="step-3" ng-show="currentStep == 3" class="place_order_step3">
+                        <div class="row">
+                            <div class="row steps_content_container">
+                                <div class="alert alert-block alert-success fade in order_quote_green_area">
+                                    <p class="margin-bottom-10">
+                                        We’ve sent a confirmation email to you. Just upload your images using any of the
+                                        methods below and we’ll get on with your order soon.
+                                    </p>
+
+                                </div>
+                                <!--   <div class="col-md-12"> -->
+                                <uib-tabset class="tabbable orderq_tabable_custom orderq-tabs">
+                                    <uib-tab class="tab_title" heading="Image uploader">
+                                        <div class="orederq_step2_content">
+                                            <div class="row">
+                                                <div class="col-md-12 order_q_upld_are">
+                                                    <div class="form-group custom_input_container">
+                                                        <div class="row">
+                                                            <div class="col-md-2">
+                                                                <div class="drop_file_area">
+                                                                    <center><p>Drop file here</p></center>
+                                                                </div>
+                                                                <div ng-show="uploaderImages.isHTML5" class="">
+                                                                    <div class="well my-drop-zone" nv-file-over=""
+                                                                         uploader="uploaderImages">
+                                                                        Base drop zone
+                                                                    </div>
+                                                                    <div nv-file-drop="" uploader="uploaderImages"
+                                                                         options="{ url: '/foo' }">
+                                                                        <div nv-file-over="" uploader="uploaderImages"
+                                                                             over-class="another-file-over-class"
+                                                                             class="well my-drop-zone">
+                                                                            Another drop zone with its own settings
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 or_div"><p>or</p></div>
+                                                            <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                                                            <div class="col-md-3 select_file_btn">
+                                                                <span class="btn btn-primary btn-o btn-file free_q_upld_btn">
+                                                                    Select file
+                                                                    <input name="UpldFile" nv-file-select=""
+                                                                           uploader="uploaderImages"
+                                                                           multiple="" type="file">
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group custom_input_container upld_progress_bar_are">
+                                                        <p>
+                                                            Queue length: {{ uploaderImages.queue.length }}
+                                                        </p>
+
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th width="50%">Name</th>
+                                                                    <!-- <th ng-show="uploaderImages.isHTML5">Size</th>
+                                                                    <th ng-show="uploaderImages.isHTML5">Progress</th> -->
+                                                                    <th>Size</th>
+                                                                    <th>Progress</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr ng-repeat="item in uploaderImages.queue">
+                                                                    <td><strong>{{ item.file.name
+                                                                        }}</strong><!-- Image preview -->
+                                                                        <!--auto height-->
+                                                                        <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+                                                                        <!--auto width-->
+                                                                        <div ng-show="uploaderImages.isHTML5"
+                                                                             ng-thumb="{ file: item._file, height: 100 }"></div>
+                                                                        <!--fixed width and height -->
+                                                                        <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+                                                                    </td>
+                                                                    <td ng-show="uploaderImages.isHTML5" nowrap>{{
+                                                                        item.file.size/1024/1024|number:2 }} MB
+                                                                    </td>
+                                                                    <td ng-show="uploaderImages.isHTML5">
+                                                                        <div class="progress progress-xs margin-bottom-0">
+                                                                            <div class="progress-bar" role="progressbar"
+                                                                                 ng-style="{ 'width': item.progress + '%' }"></div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="text-center"><span
+                                                                            ng-show="item.isSuccess"><i
+                                                                            class="glyphicon glyphicon-ok"></i></span><span
+                                                                            ng-show="item.isCancel"><i
+                                                                            class="glyphicon glyphicon-ban-circle"></i></span><span
+                                                                            ng-show="item.isError"><i
+                                                                            class="glyphicon glyphicon-remove"></i></span>
+                                                                    </td>
+                                                                    <td nowrap>
+                                                                        <button type="button"
+                                                                                class="btn btn-primary btn-xs"
+                                                                                ng-click="item.upload()"
+                                                                                ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                                                            <span class="glyphicon glyphicon-upload"></span>
+                                                                            Upload
+                                                                        </button>
+                                                                        <button type="button"
+                                                                                class="btn btn-warning btn-xs"
+                                                                                ng-click="item.cancel()"
+                                                                                ng-disabled="!item.isUploading">
+                                                                            <span class="glyphicon glyphicon-ban-circle"></span>
+                                                                            Cancel
+                                                                        </button>
+                                                                        <button type="button"
+                                                                                class="btn btn-danger btn-xs"
+                                                                                ng-click="item.remove()">
+                                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                                            Remove
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div>
+                                                            <div>
+                                                                <p> Queue progress:</p>
+
+                                                                <div class="progress progress-xs margin-top-5 margin-bottom-20 custom_progress_bar">
+                                                                    <div class="progress-bar" role="progressbar"
+                                                                         ng-style="{ 'width': uploaderImages.progress + '%' }"></div>
+                                                                </div>
+                                                            </div>
+                                                            <button type="button" class="btn btn-primary btn-s"
+                                                                    ng-click="uploaderImages.uploadAll()"
+                                                                    ng-disabled="!uploaderImages.getNotUploadedItems().length">
+                                                                <span class="glyphicon glyphicon-upload"></span> Upload
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- me portion  -->
+                                    </uib-tab>
+                                    <uib-tab heading="Dropbox">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="tab_form_container">
+                                                    <div class="row upload1">
+                                                        <div class="col-md-3 upload_icon">
+                                                            <img class="responsive"
+                                                                 src="wp-content/plugins/oel-cmp/templates/assets/images/my_acc_dropbox.png"
+                                                                 alt="test" title="test"/>
+                                                        </div>
+                                                        <div class="col-md-9 upload_content_right">
+                                                            <h4 class="upload1_content_title">Dropbox sync</h4>
+
+                                                            <p class="upld_dnld_content">FTP (File Transfer Protocol)
+                                                                You may want to use FTP when you need to transfer large
+                                                                files on a regular basis. Use any FTP client such as
+                                                                FileZilla, Transmit, Cyberduck, FireFTP and WinSCP. <a
+                                                                        href="">Learn more</a>.</p>
+
+                                                            <div class="checkbox">
+                                                                <span class="upld_dnld_icon_subtitle">Enable dropbox</span>
+                                                                <span class="green switch green ng-not-empty ng-valid"
+                                                                      ng-click="undefined ? switchsetting : switchsetting=!switchsetting"
+                                                                      ng-class="{ checked:switchsetting, disabled:undefined }"
+                                                                      ng-model="myModel.switchsetting"
+                                                                      ng-init="switchsetting = true" style="">
+                                                                                        <small></small>
+                                                                                        <input ng-model="myModel.switchsetting"
+                                                                                               style="display: none;"
+                                                                                               class="ng-pristine ng-untouched ng-valid ng-empty"
+                                                                                               type="checkbox"><span
+                                                                        class="switch-text"> </span></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </uib-tab>
+                                    <uib-tab heading="FTP">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="tab_form_container">
+                                                    <div class="tab_form_container">
+                                                        <div class="row upload2">
+                                                            <div class="col-md-3 upload_icon2">
+                                                                <img class="responsive"
+                                                                     src="wp-content/plugins/oel-cmp/templates/assets/images/ftp.png"
+                                                                     alt="test" title="test"/>
+                                                            </div>
+                                                            <div class="col-md-9 upload_content_right">
+                                                                <h4 class="upload1_content_title">FTP (file transfer
+                                                                    protocol)</h4>
+
+                                                                <p class="upld_dnld_content">We’ve made file
+                                                                    transmission
+                                                                    really easy with dropbox integration. You can
+                                                                    instantly
+                                                                    enable dropbox on your account by providing your
+                                                                    dropbox
+                                                                    email address. <a href="">Learn more</a>.</p>
+
+                                                                <div class="checkbox custom_checkbox_2">
+                                                                    <span class="upld_dnld_icon_subtitle">Enable FTP</span>
+                                                                    <span class="green switch white ng-not-empty ng-valid up_dnld_chckbox2"
+                                                                          ng-click="undefined ? switchsetting : switchsetting=!switchsetting"
+                                                                          ng-class="{ checked:switchsetting, disabled:undefined }"
+                                                                          ng-model="myModel.switchsetting"
+                                                                          ng-init="switchsetting = true" style=""><small></small><input
+                                                                            ng-model="myModel.switchsetting"
+                                                                            style="display: none;"
+                                                                            class="ng-pristine ng-untouched ng-valid ng-empty"
+                                                                            type="checkbox"><span
+                                                                            class="switch-text"> </span></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </uib-tab>
+                                </uib-tabset>
+                                <!-- </div> -->
+                                <!-- step 3 html part end -->
+                            </div>
+                            <div class="form-group col-md-3 form-actions next_step_btn pull-right orderq_btn">
+                                <button class="btn btn-dark-azure btn-block form_btn user_setting_btn"
+                                        ng-click="form.next(Form)">
+                                    Next<i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--step 3 end -->
+                    <!--step 4 start-->
+                    <div id="step-4" ng-show="currentStep == 4">
+                        <div class="row steps_content_container">
+                            <div class="col-md-12">
+                                <div class="alert alert-block alert-success fade in">
+
+                                    <p class="margin-bottom-10">
+                                        We’ve sent a confirmation email to you. Just upload your images using any of the
+                                        methods below and we’ll get on with your order soon.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Provide a name to this order for quick identification</label>
+
+                            <div class="form-group custom_input_container"
+                                 ng-class="{'has-error':Form.DoingWithIMG.$dirty  && Form.DoingWithIMG.$invalid, 'has-success':Form.DoingWithIMG.$valid}">
+                                        <textarea name="DoingWithIMG" maxlength="200" id="form-field-23"
+                                                  class="form-control limited ng-pristine ng-empty ng-touched ng-invalid ng-invalid-required textarea_inpt"
+                                                  ng-model="myModel.DoingWithIMG"
+                                                  ng-required="currentStep == 4 "></textarea>
+                                        <span class="error text-small block"
+                                              ng-if="Form.DoingWithIMG.$dirty && Form.DoingWithIMG.$error.required">this field is required.</span>
+                            </div>
+                        </div>
+                        <div class="row order_summery">
+                            <div class="col-md-12">
+
+                                <label>Order summmery</label>
+
+                                <div class="alert alert-info">
+                                    <ul>
+                                        <li><span><strong>Services:</strong>Clipping path, Manipulation </span></li>
+                                        <li><span><strong>Output size:</strong> Resize to: 1000px X 1000px</span></li>
+                                        <li><span><strong>Quantity:</strong>  10</span></li>
+                                        <li><span><strong>Turnaround:</strong>24 hours</span></li>
+                                        <li><span><strong>Other instruction:</strong>This is a test message</span></li>
+                                        <li><span><strong>Return file format: </strong>JPG</span></li>
+                                        <li><span><strong>Web compression:</strong>Maximum (100%)</span></li>
+                                    </ul>
+                                </div>
+
+                                <div class="addcomment_pane">
+                                    <a href="#" class="btn btn-transparent btn-xs" data-toggle="tooltip"
+                                       data-placement="top" title="" data-original-title="Edit">
+                                        <i class="fa fa-pencil"></i>
+                                        <span>Add comment</span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3 form-actions next_step_btn pull-right orderq_btn">
+                                <button class="btn btn-dark-azure btn-block form_btn user_setting_btn"
+                                        ng-click="form.next(Form)">
+                                    Continue and upload<i class="fa fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--step 4 end -->
+        </div>
+        </form>
+    </div>
+</div>
+</div>

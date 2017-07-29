@@ -1,0 +1,89 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: user
+ * Date: 11/2/2016
+ * Time: 11:49 AM
+ */
+
+
+
+
+define('CMP_CLIENT_TABLE', 'clients');
+
+define('CMP_CLIENT_HISTORY_TABLE', 'clients_htry');
+
+// Website tables
+
+define('CMP_USER_TABLE', 'wp_users');
+
+define('CMP_FTP_TABLE', 'ftpusers');
+
+
+define('CMP_CLIENT_LOGIN_LOG_TABLE', 'clients_login_log');
+
+
+define('CMP_COUNTRY_TABLE', 'countries');
+
+
+define('CMP_CURRENCY_TABLE', 'currency');
+
+
+define('CMP_INCOME_TABLE', 'income');
+
+
+define('CMP_INVOICE_TABLE', 'invoice');
+
+define('CMP_INVOICE_ITEM_TABLE', 'invoice_items');
+
+
+define('CMP_JOB_TABLE', 'jobs_temp');
+
+
+define('CMP_SERVICES_TABLE', 'cpi_services');
+
+
+define('CMP_VENDOR_TABLE', 'vendor');
+
+
+define('CMP_TESTIMONIAL_TABLE', 'testimonials');
+
+
+define('CMP_POTENTIAL_CLIENT_TABLE', 'potential_client');
+
+define('CMP_QUOTATION_TABLE', 'quotation');
+
+define('CMP_QUOTATION_ITEMS_TABLE', 'quotation_items');
+
+define('CMP_PRICE_LIST', 'price_list');
+
+define('CMP_SERVICES', 'services');
+
+define('CMP_EMAIL_SUBSCRIPTION_TABLE', 'email_subscription');
+
+
+// EasyTask tables
+define('CMP_ET_CLIENT_TABLE', 'clients');
+
+define('CMP_ET_JOB_TABLE', 'jobs');
+
+define('CMP_ET_JOB_HISTORY_TABLE', 'jobs_history');
+
+define('CMP_ET_IPN_ORDERS_TABLE', 'ipn_orders');
+
+define('CMP_ET_CUSTOMERS_REPORT_TABLE', 'customers_report');
+
+
+// uploaded dir//
+define('FREE_QUOTATION', 'free_quotation');
+
+define('FREE_QUOTATION_TRIAL', 'free_quotation_trial');
+
+/**
+ * path constant
+ */
+const QUOTATION_PATH="/data/files/quotation/";
+
+const CPI_MODEL = 'model';
+
+const CPI_CONTROLLER = 'controller';
